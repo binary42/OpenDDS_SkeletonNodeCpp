@@ -15,6 +15,7 @@ public:
 
 	virtual void Initialize() = 0;
 	virtual void InitializeWaitSet() = 0;
+
 	virtual void HandleWaitCondition() = 0;
 	virtual void Run() = 0;
 
