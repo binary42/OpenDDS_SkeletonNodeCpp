@@ -1,3 +1,6 @@
 [submodule "OpenDDS"]
 	path = OpenDDS
 	url = https://github.com/binary42/OpenDDS.git
+[submodule "ThirdPartyLibs/OCI"]
+	path = ThirdPartyLibs/OCI
+	url = https://github.com/binary42/OCI.git
