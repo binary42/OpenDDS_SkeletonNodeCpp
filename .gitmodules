@@ -1,0 +1,3 @@
+[submodule "OpenDDS"]
+	path = OpenDDS
+	url = https://github.com/binary42/OpenDDS.git
