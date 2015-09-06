@@ -1,6 +1,11 @@
 #pragma once
+// OpenDDS includes
+#include "../ThirdPartyLibs/OCI/dds/DCPS/Service_Participant.h"
+#include "../ThirdPartyLibs/OCI/dds/DCPS/Marked_Default_Qos.h"
+#include "../ThirdPartyLibs/OCI/dds/DCPS/PublisherImpl.h"
+#include "../ThirdPartyLibs/OCI/dds/DCPS/SubscriberImpl.h"
 
-#include "CDDSManager.h"
+// Framework includes
 #include "Utility/Utils.h"
 
 class CAppClass
