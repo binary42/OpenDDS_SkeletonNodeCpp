@@ -15,6 +15,7 @@ public:
 	void CleanUp();
 
 	//Attributes
+	bool								m_applicationTerminate;
 
 private:
 	// Methods
@@ -23,8 +24,17 @@ private:
 
 	//Attributes
 	// OpenDDS Domain id
-	DDS::DomainId_t 				_domainID;
+	DDS::DomainId_t 					_domainID;
 
-	int								_argCount;
-	char							*_pargVect[];
+	int									_argCount;
+	char								*_pargVect[];
+	DDS::DomainParticipantFactory_var 	_domainParticipantFactory;
+	DDS::DomainParticipant_var 			_participant;
+	DDS::Publisher_var 					_publisher;
+	ExampleApp::EventTypeSupport_var 	_exampleServant;
+	CORBA::String_var 					_topicTypeName;
+	DDS::Topic_var 						_topic;
+	DDS::DataWriter_var 				_writer;
+	ExampleApp::EventDataWriter_var 	_eventWriter;
+
 };
