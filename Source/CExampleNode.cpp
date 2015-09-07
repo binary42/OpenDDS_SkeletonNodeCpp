@@ -52,7 +52,7 @@ void CExampleNode::Initialize()
 		// Exit if retcode ! ok
 		if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant.in(), "" ) )
 		{
-			throw( "register type failed." );
+			LOG( ERROR ) << "register type failed.";
 		}
 
 		// Create a topic
@@ -65,7 +65,7 @@ void CExampleNode::Initialize()
 
 		if( CORBA::is_nil( _topic.in() ) )
 		{
-			throw( "Create topic failed");
+			LOG( ERROR ) << "Create topic failed";
 		}
 
 		// Create the data writer
@@ -75,19 +75,21 @@ void CExampleNode::Initialize()
 
 		if( CORBA::is_nil( _writer.in() ) )
 		{
-			throw( "Create datawriter failed");
+			LOG( ERROR ) << "Create datawriter failed";
 		}
 
 		ExampleApp::EventDataWriter_var _eventWriter = ExampleApp::EventDataWriter::_narrow( _writer.in() );
 
 		if( CORBA::is_nil( _eventWriter.in() ) )
 		{
-			throw( "_narrow failed");
+			LOG( ERROR ) << "_narrow failed";
 		}
 
 	}catch( CORBA::SystemException &excpt )
 	{
-		throw( "Failed: CORBA Exception" );
+		LOG( ERROR ) << "Failed: CORBA Exception.";
+
+		CleanUp();
 	}
 
 }
@@ -99,15 +101,11 @@ std::string CExampleNode::GetName()
 
 void CExampleNode::Run()
 {
-//	while( !m_applicationTerminate == false )
-//	{
-//
-//		// Handle recieved messages
-//		HandleWaitCondition();
-//	}
-	while(true)
+	while( !m_applicationTerminate )
 	{
-		;
+
+		// Handle recieved messages
+		//HandleWaitCondition();
 	}
 }
 
