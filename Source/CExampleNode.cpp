@@ -85,6 +85,15 @@ void CExampleNode::Initialize()
 			LOG( ERROR ) << "_narrow failed";
 		}
 
+		// Subscriber
+		_subscriber = _participant->create_subscriber( SUBSCRIBER_QOS_DEFAULT,
+														DDS::SubscriberListener::_nil(),
+														OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+
+		// Data Reader
+		_listener = new DataReaderListenerImpl;
+
+
 	}catch( CORBA::SystemException &excpt )
 	{
 		LOG( ERROR ) << "Failed: CORBA Exception.";
@@ -101,11 +110,35 @@ std::string CExampleNode::GetName()
 
 void CExampleNode::Run()
 {
+	// Example Messaage to write
+	ExampleApp::Event message;
+
 	// Register signal handler
 	signal( SIGINT, CExampleNode::HandleSignal );
 
+	// For example writes
+	int count = 0;
+
 	while( !m_applicationTerminate )
 	{
+		// Write out example message to ourselves
+		message.kicker = "test";
+		message.timestamp = nodeutils::GetUnixTimestampMs();
+
+		if( count % 5 == 0 )
+		{
+			DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
+
+			if( ret != DDS::RETCODE_OK )
+			{
+				LOG( ERROR ) << "Error write returned: " << ret;
+			}
+		}
+
+
+		//Wait for acknowledgement
+		DDS::Duration_t timeout = { 30, 0 };
+		_eventWriter->wait_for_acknowledgments( timeout );
 
 		// Handle received messages
 		HandleWaitCondition();
