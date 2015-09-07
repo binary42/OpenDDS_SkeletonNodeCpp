@@ -5,7 +5,7 @@ This node was designed to encapsulate the OCI OpenDDS package, enabling research
 approach to distributed realt-time capable framework.
 
 Hard Requirements:
-	OCI OpenDDS install for platform of your choice:
+\t	OCI OpenDDS install for platform of your choice:
 		Win
 		x32-linux
 		x64-Linux
