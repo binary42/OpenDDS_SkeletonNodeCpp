@@ -23,9 +23,9 @@ void CExampleNode::Initialize()
 	try
 	{
 		// Init the participant factory and participant
-		DDS::DomainParticipantFactory_var _domainParticipantFactory = TheParticipantFactoryWithArgs( _argCount, _pargVect );
+		_domainParticipantFactory = TheParticipantFactoryWithArgs( _argCount, _pargVect );
 
-		DDS::DomainParticipant_var _participant = _domainParticipantFactory->create_participant( _domainID, PARTICIPANT_QOS_DEFAULT,
+		_participant = _domainParticipantFactory->create_participant( _domainID, PARTICIPANT_QOS_DEFAULT,
 																								DDS::DomainParticipantListener::_nil(),
 																								OpenDDS::DCPS::DEFAULT_STATUS_MASK );
 
@@ -36,7 +36,7 @@ void CExampleNode::Initialize()
 		}
 
 		// Publisher
-		DDS::Publisher_var _publisher = _participant->create_publisher( PUBLISHER_QOS_DEFAULT,
+		_publisher = _participant->create_publisher( PUBLISHER_QOS_DEFAULT,
 																		DDS::PublisherListener::_nil(),
 																		OpenDDS::DCPS::DEFAULT_STATUS_MASK );
 
@@ -47,40 +47,40 @@ void CExampleNode::Initialize()
 		}
 
 		// Type registration
-		ExampleApp::EventTypeSupport_var _exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
+		_exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
 
 		// Exit if retcode ! ok
-		if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant.in(), "" ) )
+		if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant, "" ) )
 		{
 			LOG( ERROR ) << "register type failed.";
 		}
 
 		// Create a topic
-		CORBA::String_var _topicTypeName = _exampleTypeSupport->get_type_name();
+		_topicTypeName = _exampleTypeSupport->get_type_name();
 
-		DDS::Topic_var _topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
+		_topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
 															TOPIC_QOS_DEFAULT,
 															DDS::TopicListener::_nil(),
 															OpenDDS::DCPS::DEFAULT_STATUS_MASK );
 
-		if( CORBA::is_nil( _topic.in() ) )
+		if( !_topic )
 		{
 			LOG( ERROR ) << "Create topic failed";
 		}
 
 		// Create the data writer
-		DDS::DataWriter_var _writer = _publisher->create_datawriter( _topic.in(), DATAWRITER_QOS_DEFAULT,
+		_writer = _publisher->create_datawriter( _topic, DATAWRITER_QOS_DEFAULT,
 																	DDS::DataWriterListener::_nil(),
 																	OpenDDS::DCPS::DEFAULT_STATUS_MASK );
 
-		if( CORBA::is_nil( _writer.in() ) )
+		if( !_writer )
 		{
 			LOG( ERROR ) << "Create datawriter failed";
 		}
 
-		ExampleApp::EventDataWriter_var _eventWriter = ExampleApp::EventDataWriter::_narrow( _writer.in() );
+		_eventWriter = ExampleApp::EventDataWriter::_narrow( _writer );
 
-		if( CORBA::is_nil( _eventWriter.in() ) )
+		if( !_eventWriter )
 		{
 			LOG( ERROR ) << "_narrow failed";
 		}
@@ -115,11 +115,11 @@ void CExampleNode::CleanUp()
 	try
 	{
 		// Clean-up!
-//		_participant->delete_contained_entities();
-//
-//		_domainParticipantFactory->delete_participant( _participant.in() );
-//
-//		TheServiceParticipant->shutdown();
+		_participant->delete_contained_entities();
+
+		_domainParticipantFactory->delete_participant( _participant );
+
+		TheServiceParticipant->shutdown();
 
 	}catch( CORBA::SystemException &excpt )
 	{

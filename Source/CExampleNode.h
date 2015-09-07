@@ -31,16 +31,16 @@ private:
 	int									_argCount;
 	ACE_TCHAR							*_pargVect[];
 
-//	DDS::DomainParticipantFactory_var 	_domainParticipantFactory;
-//	DDS::DomainParticipant_var 			_participant;
-//
-//	DDS::Publisher_var 					_publisher;
-//	ExampleApp::EventTypeSupport_var 	_exampleTypeSupport;
-//
-//	CORBA::String_var 					_topicTypeName;
-//	DDS::Topic_var 						_topic;
-//
-//	DDS::DataWriter_var 				_writer;
-//	ExampleApp::EventDataWriter_var 	_eventWriter;
+	DDS::DomainParticipantFactory_ptr 	_domainParticipantFactory;
+	DDS::DomainParticipant_ptr 			_participant;
+
+	DDS::Publisher_ptr 					_publisher;
+	ExampleApp::EventTypeSupport_ptr 	_exampleTypeSupport;
+
+	CORBA::String_var 					_topicTypeName;
+	DDS::Topic_ptr						_topic;
+
+	DDS::DataWriter_ptr					_writer;
+	ExampleApp::EventDataWriter_ptr 	_eventWriter;
 
 };
