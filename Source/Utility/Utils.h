@@ -23,8 +23,6 @@
 #include <atomic>
 
 // Defines
-#define MIN(a, b)  ((a) > (b) ? (b) : (a))
-#define MAX(a, b)  ((a) < (b) ? (b) : (a))
 #define SafeDelete(a) if( a != nullptr ){ delete a; a = nullptr; }
 
 // Node utilities namespace. All helper functions should be located here

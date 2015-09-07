@@ -7,7 +7,7 @@
 class CExampleNode : CAppClass
 {
 public:
-	CExampleNode( int argc, char *argv[], std::string appNameIn, int domainIDIn );
+	CExampleNode( int argc, ACE_TCHAR *argv[], std::string appNameIn, int domainIDIn );
 	virtual ~CExampleNode();
 
 	// Methods
@@ -29,14 +29,18 @@ private:
 	DDS::DomainId_t 					_domainID;
 
 	int									_argCount;
-	char								*_argVect[];
-	DDS::DomainParticipantFactory_var 	_domainParticipantFactory;
-	DDS::DomainParticipant_var 			_participant;
-	DDS::Publisher_var 					_publisher;
-	ExampleApp::EventTypeSupport_var 	_exampleTypeSupport;
-	CORBA::String_var 					_topicTypeName;
-	DDS::Topic_var 						_topic;
-	DDS::DataWriter_var 				_writer;
-	ExampleApp::EventDataWriter_var 	_eventWriter;
+	ACE_TCHAR							*_pargVect[];
+
+//	DDS::DomainParticipantFactory_var 	_domainParticipantFactory;
+//	DDS::DomainParticipant_var 			_participant;
+//
+//	DDS::Publisher_var 					_publisher;
+//	ExampleApp::EventTypeSupport_var 	_exampleTypeSupport;
+//
+//	CORBA::String_var 					_topicTypeName;
+//	DDS::Topic_var 						_topic;
+//
+//	DDS::DataWriter_var 				_writer;
+//	ExampleApp::EventDataWriter_var 	_eventWriter;
 
 };

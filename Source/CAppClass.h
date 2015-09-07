@@ -17,13 +17,10 @@
 
 #include "dds/DCPS/StaticIncludes.h"
 
-// Framework includes
-#include "Utility/Utils.h"
-
 class CAppClass
 {
 public:
-	CAppClass( int argc, char *argv[], std::string appNameIn );
+	CAppClass( int argc, ACE_TCHAR *argv[], std::string appNameIn );
 	virtual ~CAppClass();
 
 	// Methods - interface - pure virtuals
@@ -39,8 +36,7 @@ public:
 	// Attributes
 	std::vector<std::string> 				m_commandLineArguments;
 
-private:
+protected:
 	// Attributes
 	std::string								_appName;
-
 };
