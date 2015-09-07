@@ -3,7 +3,7 @@
 #include "CAppClass.h"
 
 #include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
-#include "DataReaderListenerImpl.h"
+#include "CDataReaderListenerImpl.h"
 
 class CExampleNode : CAppClass
 {
@@ -28,6 +28,13 @@ private:
 	void HandleWaitCondition();
 
 	static void HandleSignal( int sigNumIn );
+
+	void InitParticipant();
+	void InitPublisherAndSubscriber();
+
+	void InitTopicinfo();
+	void InitDataWriter();
+	void InitDataReader();
 
 	//Attributes
 	// OpenDDS Domain id
@@ -57,7 +64,7 @@ private:
 	// Data reader
 	DDS::DataReaderListener_ptr			_listener;
 	DDS::DataReader_ptr					_reader;
-	ExampleApp::EventDataReader_ptr		_readerI;
 
+	ExampleApp::EventDataReader_ptr		_readerI;
 
 };

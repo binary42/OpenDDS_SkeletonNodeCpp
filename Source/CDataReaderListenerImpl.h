@@ -1,23 +1,25 @@
-/*
- * $Id: DataReaderListenerImpl.h 5724 2012-06-28 16:41:17Z harrisb $
- *
- *
- * Distributed under the OpenDDS License.
- * See: http://www.opendds.org/license.html
- */
-
-#ifndef DATAREADER_LISTENER_IMPL_H
-#define DATAREADER_LISTENER_IMPL_H
+#pragma once
 
 #include <ace/Global_Macros.h>
+#include <ace/Log_Msg.h>
+#include <ace/OS_NS_stdlib.h>
 
 #include <dds/DdsDcpsSubscriptionC.h>
 #include <dds/DCPS/LocalObject.h>
 #include <dds/DCPS/Definitions.h>
 
-class DataReaderListenerImpl
+#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportC.h"
+#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
+
+#include <iostream>
+
+// Implementation class for data reader listener stubs from OpenDDS
+class CDataReaderListenerImpl
   : public virtual OpenDDS::DCPS::LocalObject<DDS::DataReaderListener> {
 public:
+	CDataReaderListenerImpl();
+	virtual ~CDataReaderListenerImpl();
+
   virtual void on_requested_deadline_missed(
     DDS::DataReader_ptr reader,
     const DDS::RequestedDeadlineMissedStatus& status);
@@ -45,5 +47,3 @@ public:
     DDS::DataReader_ptr reader,
     const DDS::SampleLostStatus& status);
 };
-
-#endif /* DATAREADER_LISTENER_IMPL_H */

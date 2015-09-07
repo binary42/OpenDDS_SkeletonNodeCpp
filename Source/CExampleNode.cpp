@@ -22,94 +22,15 @@ void CExampleNode::Initialize()
 {
 	try
 	{
-		// Init the participant factory and participant
-		_domainParticipantFactory = TheParticipantFactoryWithArgs( _argCount, _pargVect );
+		InitParticipant();
 
-		_participant = _domainParticipantFactory->create_participant( _domainID, PARTICIPANT_QOS_DEFAULT,
-																								DDS::DomainParticipantListener::_nil(),
-																								OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+		InitPublisherAndSubscriber();
 
-		// Exit is nil
-		if( !_participant )
-		{
-			LOG( ERROR ) << "Create Participant Failed.";
-		}
+		InitTopicinfo();
 
-		// Publisher
-		_publisher = _participant->create_publisher( PUBLISHER_QOS_DEFAULT,
-																		DDS::PublisherListener::_nil(),
-																		OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+		InitDataWriter();
 
-		// Exit if nil
-		if( !_publisher )
-		{
-			LOG( ERROR ) << "Create publisher failed.";
-		}
-
-		// Type registration
-		_exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
-
-		// Exit if retcode ! ok
-		if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant, "" ) )
-		{
-			LOG( ERROR ) << "register type failed.";
-		}
-
-		// Create a topic
-		_topicTypeName = _exampleTypeSupport->get_type_name();
-
-		_topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
-															TOPIC_QOS_DEFAULT,
-															DDS::TopicListener::_nil(),
-															OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-
-		if( !_topic )
-		{
-			LOG( ERROR ) << "Create topic failed";
-		}
-
-		// Create the data writer
-		_writer = _publisher->create_datawriter( _topic, DATAWRITER_QOS_DEFAULT,
-																	DDS::DataWriterListener::_nil(),
-																	OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-
-		if( !_writer )
-		{
-			LOG( ERROR ) << "Create datawriter failed";
-		}
-
-		_eventWriter = ExampleApp::EventDataWriter::_narrow( _writer );
-
-		if( !_eventWriter )
-		{
-			LOG( ERROR ) << "_narrow failed";
-		}
-
-		// Subscriber
-		_subscriber = _participant->create_subscriber( SUBSCRIBER_QOS_DEFAULT,
-														DDS::SubscriberListener::_nil(),
-														OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-
-		// Data Reader
-		_listener = new DataReaderListenerImpl;
-
-		_reader = _subscriber->create_datareader( _topic, DATAREADER_QOS_DEFAULT,
-													_listener,
-													OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-
-		if( !_reader )
-		{
-			LOG( ERROR ) << " Create data reader failed";
-		}
-
-		_readerI = ExampleApp::EventDataReader::_narrow( _reader );
-
-		if( !_readerI )
-		{
-
-			LOG( ERROR ) << " _narrow failed";
-		}
-
+		InitDataReader();
 
 	}catch( CORBA::SystemException &excpt )
 	{
@@ -221,4 +142,112 @@ void CExampleNode::HandleSignal( int sigNumIn )
 	LOG( INFO ) << "Ctrl-C Caught.";
 
 	exit( sigNumIn );
+}
+
+void CExampleNode::InitParticipant()
+{
+	// Init the participant factory and participant
+	_domainParticipantFactory = TheParticipantFactoryWithArgs( _argCount, _pargVect );
+
+	_participant = _domainParticipantFactory->create_participant( _domainID, PARTICIPANT_QOS_DEFAULT,
+																							DDS::DomainParticipantListener::_nil(),
+																							OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+
+	// Exit is nil
+	if( !_participant )
+	{
+		LOG( ERROR ) << "Create Participant Failed.";
+	}
+}
+
+void CExampleNode::InitPublisherAndSubscriber()
+{
+	// Publisher
+	_publisher = _participant->create_publisher( PUBLISHER_QOS_DEFAULT,
+																	DDS::PublisherListener::_nil(),
+																	OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+
+	// Exit if nil
+	if( !_publisher )
+	{
+		LOG( ERROR ) << "Create publisher failed.";
+	}
+
+	// Subscriber
+	_subscriber = _participant->create_subscriber( SUBSCRIBER_QOS_DEFAULT,
+													DDS::SubscriberListener::_nil(),
+													OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+	if( !_subscriber )
+	{
+		LOG( ERROR ) << "Create subscriber failed.";
+	}
+}
+
+void CExampleNode::InitTopicinfo()
+{
+	// Type registration
+	_exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
+
+	// Exit if retcode ! ok
+	if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant, "" ) )
+	{
+		LOG( ERROR ) << "register type failed.";
+	}
+
+	// Create a topic
+	_topicTypeName = _exampleTypeSupport->get_type_name();
+
+	_topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
+														TOPIC_QOS_DEFAULT,
+														DDS::TopicListener::_nil(),
+														OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+
+	if( !_topic )
+	{
+		LOG( ERROR ) << "Create topic failed";
+	}
+}
+
+void CExampleNode::InitDataWriter()
+{
+	// Create the data writer
+	_writer = _publisher->create_datawriter( _topic, DATAWRITER_QOS_DEFAULT,
+																DDS::DataWriterListener::_nil(),
+																OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+
+	if( !_writer )
+	{
+		LOG( ERROR ) << "Create datawriter failed";
+	}
+
+	_eventWriter = ExampleApp::EventDataWriter::_narrow( _writer );
+
+	if( !_eventWriter )
+	{
+		LOG( ERROR ) << "_narrow failed";
+	}
+
+}
+
+void CExampleNode::InitDataReader()
+{
+	// Data Reader
+	_listener = new CDataReaderListenerImpl;
+
+	_reader = _subscriber->create_datareader( _topic, DATAREADER_QOS_DEFAULT,
+												_listener,
+												OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+
+	if( !_reader )
+	{
+		LOG( ERROR ) << " Create data reader failed";
+	}
+
+	_readerI = ExampleApp::EventDataReader::_narrow( _reader );
+
+	if( !_readerI )
+	{
+
+		LOG( ERROR ) << " _narrow failed";
+	}
 }

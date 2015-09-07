@@ -1,50 +1,44 @@
-/*
- * $Id: DataReaderListenerImpl.cpp 5426 2012-03-09 14:45:00Z calabrese_p $
- *
- *
- * Distributed under the OpenDDS License.
- * See: http://www.opendds.org/license.html
- */
+#include "CDataReaderListenerImpl.h"
 
-#include <ace/Log_Msg.h>
-#include <ace/OS_NS_stdlib.h>
+CDataReaderListenerImpl::CDataReaderListenerImpl()
+{
 
-#include "DataReaderListenerImpl.h"
-#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportC.h"
-#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
+}
 
-#include <iostream>
+CDataReaderListenerImpl::~CDataReaderListenerImpl()
+{
 
-void
-DataReaderListenerImpl::on_requested_deadline_missed(
+}
+
+void CDataReaderListenerImpl::on_requested_deadline_missed(
   DDS::DataReader_ptr /*reader*/,
   const DDS::RequestedDeadlineMissedStatus& /*status*/)
 {
+
 }
 
-void
-DataReaderListenerImpl::on_requested_incompatible_qos(
+void CDataReaderListenerImpl::on_requested_incompatible_qos(
   DDS::DataReader_ptr /*reader*/,
   const DDS::RequestedIncompatibleQosStatus& /*status*/)
 {
+
 }
 
-void
-DataReaderListenerImpl::on_sample_rejected(
+void CDataReaderListenerImpl::on_sample_rejected(
   DDS::DataReader_ptr /*reader*/,
   const DDS::SampleRejectedStatus& /*status*/)
 {
+
 }
 
-void
-DataReaderListenerImpl::on_liveliness_changed(
+void CDataReaderListenerImpl::on_liveliness_changed(
   DDS::DataReader_ptr /*reader*/,
   const DDS::LivelinessChangedStatus& /*status*/)
 {
+
 }
 
-void
-DataReaderListenerImpl::on_data_available(DDS::DataReader_ptr reader)
+void CDataReaderListenerImpl::on_data_available(DDS::DataReader_ptr reader)
 {
   ExampleApp::EventDataReader_var reader_i =
 		  ExampleApp::EventDataReader::_narrow(reader);
@@ -78,6 +72,7 @@ DataReaderListenerImpl::on_data_available(DDS::DataReader_ptr reader)
 //                << "         text       = " << messages[0].text.in()    << std::endl;
 
 //    }
+	  std::cout << "SampleInfo " << messages[0].kicker;
 
   } else {
     ACE_ERROR((LM_ERROR,
@@ -88,16 +83,16 @@ DataReaderListenerImpl::on_data_available(DDS::DataReader_ptr reader)
   reader_i->return_loan(messages, info);
 }
 
-void
-DataReaderListenerImpl::on_subscription_matched(
+void CDataReaderListenerImpl::on_subscription_matched(
   DDS::DataReader_ptr /*reader*/,
   const DDS::SubscriptionMatchedStatus& /*status*/)
 {
+
 }
 
-void
-DataReaderListenerImpl::on_sample_lost(
+void CDataReaderListenerImpl::on_sample_lost(
   DDS::DataReader_ptr /*reader*/,
   const DDS::SampleLostStatus& /*status*/)
 {
+
 }
