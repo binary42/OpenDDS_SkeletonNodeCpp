@@ -93,6 +93,23 @@ void CExampleNode::Initialize()
 		// Data Reader
 		_listener = new DataReaderListenerImpl;
 
+		_reader = _subscriber->create_datareader( _topic, DATAREADER_QOS_DEFAULT,
+													_listener,
+													OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+
+		if( !_reader )
+		{
+			LOG( ERROR ) << " Create data reader failed";
+		}
+
+		_readerI = ExampleApp::EventDataReader::_narrow( _reader );
+
+		if( !_readerI )
+		{
+
+			LOG( ERROR ) << " _narrow failed";
+		}
+
 
 	}catch( CORBA::SystemException &excpt )
 	{

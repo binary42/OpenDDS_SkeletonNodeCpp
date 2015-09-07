@@ -57,5 +57,7 @@ private:
 	// Data reader
 	DDS::DataReaderListener_ptr			_listener;
 	DDS::DataReader_ptr					_reader;
+	ExampleApp::EventDataReader_ptr		_readerI;
+
 
 };
