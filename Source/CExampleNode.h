@@ -13,16 +13,20 @@ public:
 	// Methods
 	void Initialize();
 	std::string GetName();
+
 	void Run();
 	void CleanUp();
+
+	void SignalHandler( int sigNumIn );
 
 	//Attributes
 	bool								m_applicationTerminate;
 
 private:
 	// Methods
-	void InitializeWaitSet();
 	void HandleWaitCondition();
+
+	static void HandleSignal( int sigNumIn );
 
 	//Attributes
 	// OpenDDS Domain id
@@ -42,5 +46,7 @@ private:
 
 	DDS::DataWriter_ptr					_writer;
 	ExampleApp::EventDataWriter_ptr 	_eventWriter;
+
+	static CExampleNode					_instanceHandle;
 
 };

@@ -101,12 +101,17 @@ std::string CExampleNode::GetName()
 
 void CExampleNode::Run()
 {
+	// Register signal handler
+	signal( SIGINT, CExampleNode::HandleSignal );
+
 	while( !m_applicationTerminate )
 	{
 
-		// Handle recieved messages
-		//HandleWaitCondition();
+		// Handle received messages
+		HandleWaitCondition();
 	}
+
+	CleanUp();
 }
 
 void CExampleNode::CleanUp()
@@ -127,34 +132,43 @@ void CExampleNode::CleanUp()
 	}
 }
 
-void CExampleNode::InitializeWaitSet()
+void CExampleNode::SignalHandler( int sigNumIn )
 {
+	LOG( INFO ) << "Terminating App with SigNum: " << sigNumIn;
 
+	m_applicationTerminate = true;
 }
 
 void CExampleNode::HandleWaitCondition()
 {
 	// Block until Subscriber is available
-//	DDS::StatusCondition_var condition = _writer->get_statuscondition();
-//	condition->set_enabled_statuses( DDS::PUBLICATION_MATCHED_STATUS );
-//
-//	DDS::WaitSet_var waitSet = new DDS::WaitSet;
-//	waitSet->attach_condition( condition );
-//
-//	DDS::ConditionSeq conditions;
-//	DDS::PublicationMatchedStatus matches = { 0, 0, 0, 0, 0 };
-//	DDS::Duration_t timeout = { 30, 0 };
-//
-//	do {
-//	  if ( waitSet->wait(conditions, timeout ) != DDS::RETCODE_OK ) {
-//		throw( "wait condition failed." );
-//	  }
-//
-//	  if ( _writer->get_publication_matched_status( matches ) != ::DDS::RETCODE_OK ) {
-//		throw( "Publication matched status failed." );
-//	  }
-//
-//	} while ( matches.current_count < 1 );
-//
-//	waitSet->detach_condition( condition );
+	DDS::StatusCondition_var condition = _writer->get_statuscondition();
+	condition->set_enabled_statuses( DDS::PUBLICATION_MATCHED_STATUS );
+
+	DDS::WaitSet_var waitSet = new DDS::WaitSet;
+	waitSet->attach_condition( condition );
+
+	DDS::ConditionSeq conditions;
+	DDS::PublicationMatchedStatus matches = { 0, 0, 0, 0, 0 };
+	DDS::Duration_t timeout = { 30, 0 };
+
+	do {
+	  if ( waitSet->wait(conditions, timeout ) != DDS::RETCODE_OK ) {
+		throw( "wait condition failed." );
+	  }
+
+	  if ( _writer->get_publication_matched_status( matches ) != ::DDS::RETCODE_OK ) {
+		throw( "Publication matched status failed." );
+	  }
+
+	} while ( matches.current_count < 1 );
+
+	waitSet->detach_condition( condition );
+}
+
+void CExampleNode::HandleSignal( int sigNumIn )
+{
+	LOG( INFO ) << "Ctrl-C Caught.";
+
+	exit( sigNumIn );
 }

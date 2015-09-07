@@ -36,10 +36,10 @@ int main( int argc, ACE_TCHAR *argv[] )
 	}catch( std::exception &excpt )
 	{
 		LOG( ERROR ) << "Exception starting application: " << application->GetName() << " " << excpt.what();
-	}
 
-	// Clean up
-	application->CleanUp();
+		// Clean up
+		application->CleanUp();
+	}
 
 	return 0;
 }
