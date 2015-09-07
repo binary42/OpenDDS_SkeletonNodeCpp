@@ -1,14 +1,21 @@
 #pragma once
 // OpenDDS includes
-#include "../ThirdPartyLibs/OCI/dds/DdsDcpsInfrastructureC.h"
-#include "../ThirdPartyLibs/OCI/dds/DdsDcpsPublicationC.h"
-#include "../ThirdPartyLibs/OCI/dds/DCPS/Marked_Default_Qos.h"
-#include "../ThirdPartyLibs/OCI/dds/DCPS/Service_Participant.h"
-#include "../ThirdPartyLibs/OCI/dds/DCPS/WaitSet.h"
+//#include "../ThirdPartyLibs/OCI/dds/DdsDcpsInfrastructureC.h"
+//#include "../ThirdPartyLibs/OCI/dds/DdsDcpsPublicationC.h"
+//#include "../ThirdPartyLibs/OCI/dds/DCPS/Marked_Default_Qos.h"
+//#include "../ThirdPartyLibs/OCI/dds/DCPS/Service_Participant.h"
+//#include "../ThirdPartyLibs/OCI/dds/DCPS/WaitSet.h"
+//#include "../ThirdPartyLibs/OCI/dds/DCPS/StaticIncludes.h"
+//
+//#include "../ThirdPartyLibs/OCI/orbsvcs/Time_Utilities.h"
 
-#include "../ThirdPartyLibs/OCI/dds/DCPS/StaticIncludes.h"
+#include <dds/DdsDcpsInfrastructureC.h>
+#include <dds/DdsDcpsPublicationC.h>
+#include <dds/DCPS/Marked_Default_Qos.h>
+#include <dds/DCPS/Service_Participant.h>
+#include <dds/DCPS/WaitSet.h>
 
-#include "../ThirdPartyLibs/OCI/orbsvcs/Time_Utilities.h"
+#include "dds/DCPS/StaticIncludes.h"
 
 // Framework includes
 #include "Utility/Utils.h"

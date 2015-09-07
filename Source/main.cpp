@@ -6,6 +6,7 @@
 #include "CExampleNode.h"
 
 #define ELOG_CONFIG_PATH "Config/log.conf"
+#define DOMAIN_ID 0
 
 INITIALIZE_EASYLOGGINGPP
 
@@ -17,7 +18,7 @@ int main( int argc, char *argv[] )
 	// Set configuration
 	el::Loggers::reconfigureAllLoggers( logConfig );
 
-	std::unique_ptr<CExampleNode> application( new CExampleNode( argc, argv, "ExampleApp" ) );
+	std::unique_ptr<CExampleNode> application( new CExampleNode( argc, argv, "ExampleApp", DOMAIN_ID ) );
 
 	LOG( INFO ) << "<-------------------------------->";
 	LOG( INFO ) << "<--------" << application->GetName() << "-------->";

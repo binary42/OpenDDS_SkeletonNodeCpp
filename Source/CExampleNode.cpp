@@ -5,9 +5,9 @@ CExampleNode::CExampleNode( int argc, char *argv[], std::string appNameIn, int d
 	, m_applicationTerminate( false)
 	, _domainID( domainIDIn )
 	, _argCount( argc )
-	, _pargVect( argv )
-{
 
+{
+	*_argVect = *argv;
 }
 
 CExampleNode::~CExampleNode()
@@ -22,7 +22,7 @@ void CExampleNode::Initialize()
 		// Init the participant factory and participant
 		_domainParticipantFactory = DDS::DomainParticipantFactory::_nil();
 
-		_domainParticipantFactory = TheParticipantFactoryWithArgs( _argCount, _pargVect );
+		_domainParticipantFactory = TheParticipantFactoryWithArgs( _argCount, _argVect );
 
 		_participant = _domainParticipantFactory->create_participant( 42, PARTICIPANT_QOS_DEFAULT,
 																								DDS::DomainParticipantListener::_nil(),
@@ -34,7 +34,8 @@ void CExampleNode::Initialize()
 		}
 
 		// Publisher
-		_publisher = _participant->create_publisher( PUBLISHER_QOS_DEFAULT, DDS::PublisherListener::_nil() );
+		_publisher = _participant->create_publisher( PUBLISHER_QOS_DEFAULT, DDS::PublisherListener::_nil(),
+													OpenDDS::DCPS::DEFAULT_STATUS_MASK );
 
 		// Exit if nil
 		if( CORBA::is_nil( _publisher.in() ) )
@@ -43,16 +44,16 @@ void CExampleNode::Initialize()
 		}
 
 		// Type registration
-		_exampleServant = new ExampleApp::EventTypeSupportImpl();
+		_exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
 
 		// Exit if retcode ! ok
-		if( DDS::RETCODE_OK != _exampleServant->register_type( _participant.in(), EXAMPLE_DATA_TYPE ) )
+		if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant.in(), "" ) )
 		{
 			throw( "register type failed." );
 		}
 
 		// Create a topic
-		_topicTypeName = _exampleServant->get_type_name();
+		_topicTypeName = _exampleTypeSupport->get_type_name();
 
 		_topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
 															TOPIC_QOS_DEFAULT,
@@ -83,7 +84,7 @@ void CExampleNode::Initialize()
 
 	}catch( CORBA::SystemException &excpt )
 	{
-		throw( excpt );
+		throw( "Failed: CORBA Exception" );
 	}
 
 }
@@ -116,7 +117,7 @@ void CExampleNode::CleanUp()
 
 	}catch( CORBA::SystemException &excpt )
 	{
-		throw( excpt );
+		throw( "Failed: CORBA Exception" );
 	}
 }
 

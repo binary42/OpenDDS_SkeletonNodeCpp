@@ -2,6 +2,8 @@
 
 #include "CAppClass.h"
 
+#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
+
 class CExampleNode : CAppClass
 {
 public:
@@ -27,11 +29,11 @@ private:
 	DDS::DomainId_t 					_domainID;
 
 	int									_argCount;
-	char								*_pargVect[];
+	char								*_argVect[];
 	DDS::DomainParticipantFactory_var 	_domainParticipantFactory;
 	DDS::DomainParticipant_var 			_participant;
 	DDS::Publisher_var 					_publisher;
-	ExampleApp::EventTypeSupport_var 	_exampleServant;
+	ExampleApp::EventTypeSupport_var 	_exampleTypeSupport;
 	CORBA::String_var 					_topicTypeName;
 	DDS::Topic_var 						_topic;
 	DDS::DataWriter_var 				_writer;
