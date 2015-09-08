@@ -5,9 +5,12 @@ CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, 
 	CAppNode( argc, argv, appNameIn )
 	, m_applicationTerminate( false)
 	, _domainID( domainIDIn )
-	, _argCount( argc )
+	, _argCount( argc ), _domainParticipantFactory( nullptr), _participant( nullptr )
+	, _publisher( nullptr ), _exampleTypeSupport( nullptr ), _subscriber( nullptr)
+	, _topic( nullptr ), _writer( nullptr ), _eventWriter( nullptr ),  _listener( nullptr )
+	, _reader( nullptr), _readerI( nullptr )
 {
-	for( size_t i = 0; i < _argCount; ++i)
+	for( int i = 0; i < _argCount; ++i)
 	{
 		_pargVect[i] = argv[i];
 	}
@@ -106,18 +109,15 @@ void CAppNodeImpl::HandleWaitCondition()
 	DDS::SubscriptionMatchedStatus matches = { 0, 0, 0, 0, 0 };
 	DDS::Duration_t timeout = { 30, 0 };
 
-	//do {
-	  if ( waitSet->wait(conditions, timeout ) != DDS::RETCODE_OK )
-	  {
+	if ( waitSet->wait(conditions, timeout ) != DDS::RETCODE_OK )
+	{
 		LOG( ERROR ) << "wait condition failed.";
-	  }
+	}
 
-	  if ( _reader->get_subscription_matched_status( matches ) != DDS::RETCODE_OK )
-	  {
+	if ( _reader->get_subscription_matched_status( matches ) != DDS::RETCODE_OK )
+	{
 		LOG( ERROR ) << "Publication matched status failed.";
-	  }
-
-	//} while ( matches.current_count > 0 );
+	}
 
 	waitSet->detach_condition( condition );
 }
