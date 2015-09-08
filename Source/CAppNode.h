@@ -14,11 +14,11 @@
 // Signal Handling
 #include "Utility/CSignalException.h"
 
-class CAppClass
+class CAppNode
 {
 public:
-	CAppClass( int argc, ACE_TCHAR *argv[], std::string appNameIn );
-	virtual ~CAppClass();
+	CAppNode( int argc, ACE_TCHAR *argv[], std::string appNameIn );
+	virtual ~CAppNode();
 
 	// Methods - interface - pure virtual
 	virtual std::string GetName() 					= 0;

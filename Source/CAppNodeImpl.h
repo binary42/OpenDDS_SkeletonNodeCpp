@@ -1,15 +1,14 @@
 #pragma once
 
-#include "CAppClass.h"
-
 #include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
+#include "CAppNode.h"
 #include "CDataReaderListenerImpl.h"
 
-class CExampleNode : CAppClass
+class CAppNodeImpl : CAppNode
 {
 public:
-	CExampleNode( int argc, ACE_TCHAR *argv[], std::string appNameIn, int domainIDIn );
-	virtual ~CExampleNode();
+	CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, int domainIDIn );
+	virtual ~CAppNodeImpl();
 
 	// Methods
 	void Initialize();

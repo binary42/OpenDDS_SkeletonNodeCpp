@@ -1,8 +1,8 @@
-#include "CExampleNode.h"
+#include "CAppNodeImpl.h"
 #include "Utility/Utils.h"
 
-CExampleNode::CExampleNode( int argc, ACE_TCHAR *argv[], std::string appNameIn, int domainIDIn ):
-	CAppClass( argc, argv, appNameIn )
+CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, int domainIDIn ):
+	CAppNode( argc, argv, appNameIn )
 	, m_applicationTerminate( false)
 	, _domainID( domainIDIn )
 	, _argCount( argc )
@@ -13,12 +13,12 @@ CExampleNode::CExampleNode( int argc, ACE_TCHAR *argv[], std::string appNameIn, 
 	}
 }
 
-CExampleNode::~CExampleNode()
+CAppNodeImpl::~CAppNodeImpl()
 {
 
 }
 
-void CExampleNode::Initialize()
+void CAppNodeImpl::Initialize()
 {
 	try
 	{
@@ -45,12 +45,12 @@ void CExampleNode::Initialize()
 
 }
 
-std::string CExampleNode::GetName()
+std::string CAppNodeImpl::GetName()
 {
 	return _appName;
 }
 
-void CExampleNode::Run()
+void CAppNodeImpl::Run()
 {
 	// Example Messaage to write
 	ExampleApp::Event message;
@@ -87,7 +87,7 @@ void CExampleNode::Run()
 	CleanUp();
 }
 
-void CExampleNode::CleanUp()
+void CAppNodeImpl::CleanUp()
 {
 	LOG( INFO ) << "Cleaning up application...";
 	try
@@ -105,7 +105,7 @@ void CExampleNode::CleanUp()
 	}
 }
 
-void CExampleNode::HandleWaitCondition()
+void CAppNodeImpl::HandleWaitCondition()
 {
 	// Block until Subscriber is available
 	DDS::StatusCondition_var condition = _writer->get_statuscondition();
@@ -134,7 +134,7 @@ void CExampleNode::HandleWaitCondition()
 	waitSet->detach_condition( condition );
 }
 
-void CExampleNode::InitParticipant()
+void CAppNodeImpl::InitParticipant()
 {
 	// Init the participant factory and participant
 	_domainParticipantFactory = TheParticipantFactoryWithArgs( _argCount, _pargVect );
@@ -150,7 +150,7 @@ void CExampleNode::InitParticipant()
 	}
 }
 
-void CExampleNode::InitPublisherAndSubscriber()
+void CAppNodeImpl::InitPublisherAndSubscriber()
 {
 	// Publisher
 	_publisher = _participant->create_publisher( PUBLISHER_QOS_DEFAULT,
@@ -173,7 +173,7 @@ void CExampleNode::InitPublisherAndSubscriber()
 	}
 }
 
-void CExampleNode::InitTopicinfo()
+void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
 	_exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
@@ -198,7 +198,7 @@ void CExampleNode::InitTopicinfo()
 	}
 }
 
-void CExampleNode::InitDataWriter()
+void CAppNodeImpl::InitDataWriter()
 {
 	// Create the data writer
 	_writer = _publisher->create_datawriter( _topic, DATAWRITER_QOS_DEFAULT,
@@ -219,7 +219,7 @@ void CExampleNode::InitDataWriter()
 
 }
 
-void CExampleNode::InitDataReader()
+void CAppNodeImpl::InitDataReader()
 {
 	// Data Reader
 	_listener = new CDataReaderListenerImpl;

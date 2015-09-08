@@ -1,7 +1,7 @@
-#include "CAppClass.h"
+#include "CAppNode.h"
 #include "Utility/Utils.h"
 
-CAppClass::CAppClass( int argc, ACE_TCHAR *argv[], std::string appNameIn ) : _appName( appNameIn )
+CAppNode::CAppNode( int argc, ACE_TCHAR *argv[], std::string appNameIn ) : _appName( appNameIn )
 
 {
 	for( size_t i = 0; i < argc; ++i )
@@ -12,7 +12,7 @@ CAppClass::CAppClass( int argc, ACE_TCHAR *argv[], std::string appNameIn ) : _ap
 	_psignalHandler = new CSignalHandler();
 }
 
-CAppClass::~CAppClass()
+CAppNode::~CAppNode()
 {
 	SafeDelete( _psignalHandler );
 }

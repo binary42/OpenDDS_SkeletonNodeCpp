@@ -2,8 +2,8 @@
  * Main program entry.
  */
 
+#include "CAppNodeImpl.h"
 #include "Utility/Utils.h"
-#include "CExampleNode.h"
 
 #define ELOG_CONFIG_PATH "Config/log.conf"
 #define DOMAIN_ID 0
@@ -19,9 +19,9 @@ int main( int argc, ACE_TCHAR *argv[] )
 	// Set configuration
 	el::Loggers::reconfigureAllLoggers( logConfig );
 
-	//std::unique_ptr<CExampleNode> application( new CExampleNode( argc, argv, APP_NAME, DOMAIN_ID ) );
+	std::unique_ptr<CAppNodeImpl> application( new CAppNodeImpl( argc, argv, APP_NAME, DOMAIN_ID ) );
 
-	CExampleNode *application = new CExampleNode( argc, argv, APP_NAME, DOMAIN_ID );
+	//CAppNodeImpl *application = new CAppNodeImpl( argc, argv, APP_NAME, DOMAIN_ID );
 
 	LOG( INFO ) << "<-------------------------------->";
 	LOG( INFO ) << "<--------" << application->GetName();
