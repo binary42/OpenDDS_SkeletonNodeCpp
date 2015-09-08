@@ -18,16 +18,12 @@ public:
 	void Run();
 	void CleanUp();
 
-	void SignalHandler( int sigNumIn );
-
 	//Attributes
 	bool								m_applicationTerminate;
 
 private:
 	// Methods
 	void HandleWaitCondition();
-
-	static void HandleSignal( int sigNumIn );
 
 	void InitParticipant();
 	void InitPublisherAndSubscriber();

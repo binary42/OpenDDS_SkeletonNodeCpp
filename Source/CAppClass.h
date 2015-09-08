@@ -11,6 +11,9 @@
 
 #include "dds/DCPS/StaticIncludes.h"
 
+// Signal Handling
+#include "Utility/CSignalException.h"
+
 class CAppClass
 {
 public:
@@ -32,4 +35,5 @@ public:
 protected:
 	// Attributes
 	std::string								_appName;
+	CSignalHandler							*_psignalHandler;
 };

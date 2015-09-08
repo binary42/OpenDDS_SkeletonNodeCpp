@@ -22,6 +22,10 @@ void CExampleNode::Initialize()
 {
 	try
 	{
+		// Setup signal handler for ctrl-c
+		_psignalHandler->SetupSignalHandlers();
+
+		// Init all DDS related components
 		InitParticipant();
 
 		InitPublisherAndSubscriber();
@@ -51,13 +55,10 @@ void CExampleNode::Run()
 	// Example Messaage to write
 	ExampleApp::Event message;
 
-	// Register signal handler
-	signal( SIGINT, CExampleNode::HandleSignal );
-
 	// For example writes
 	int count = 0;
 
-	while( !m_applicationTerminate )
+	while( !_psignalHandler->GotExitSignal() )
 	{
 		// Write out example message to ourselves
 		message.kicker = "test";
@@ -104,13 +105,6 @@ void CExampleNode::CleanUp()
 	}
 }
 
-void CExampleNode::SignalHandler( int sigNumIn )
-{
-	LOG( INFO ) << "Terminating App with SigNum: " << sigNumIn;
-
-	m_applicationTerminate = true;
-}
-
 void CExampleNode::HandleWaitCondition()
 {
 	// Block until Subscriber is available
@@ -138,13 +132,6 @@ void CExampleNode::HandleWaitCondition()
 	//} while ( matches.current_count > 0 );
 
 	waitSet->detach_condition( condition );
-}
-
-void CExampleNode::HandleSignal( int sigNumIn )
-{
-	LOG( INFO ) << "Ctrl-C Caught.";
-
-	exit( sigNumIn );
 }
 
 void CExampleNode::InitParticipant()
