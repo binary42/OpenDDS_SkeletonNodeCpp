@@ -61,18 +61,15 @@ void CAppNodeImpl::Run()
 		message.kicker = "test";
 		message.timestamp = nodeutils::GetUnixTimestampMs();
 
-			DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
+		DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
 
-			if( ret != DDS::RETCODE_OK )
-			{
-				LOG( ERROR ) << "Error write returned: " << ret;
-			}
+		if( ret != DDS::RETCODE_OK )
+		{
+			LOG( ERROR ) << "Error write returned: " << ret;
+		}
 
 		// Handle received messages
 		HandleWaitCondition();
-
-		// Pause - example write throttling
-		sleep( 3 );
 	}
 
 	CleanUp();
