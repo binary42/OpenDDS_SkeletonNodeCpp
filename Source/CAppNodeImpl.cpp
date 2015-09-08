@@ -55,33 +55,24 @@ void CAppNodeImpl::Run()
 	// Example Messaage to write
 	ExampleApp::Event message;
 
-	// For example writes
-	int count = 0;
-
 	while( !_psignalHandler->GotExitSignal() )
 	{
 		// Write out example message to ourselves
 		message.kicker = "test";
 		message.timestamp = nodeutils::GetUnixTimestampMs();
 
-		//if( count % 5 != 0 )
-		//{
 			DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
 
 			if( ret != DDS::RETCODE_OK )
 			{
 				LOG( ERROR ) << "Error write returned: " << ret;
 			}
-		//s}
-
-		count++;
-
-		//Wait for acknowledgement
-//		DDS::Duration_t timeout = { 30, 0 };
-//		_eventWriter->wait_for_acknowledgments( timeout );
 
 		// Handle received messages
 		HandleWaitCondition();
+
+		// Pause - example write throttling
+		sleep( 3 );
 	}
 
 	CleanUp();
