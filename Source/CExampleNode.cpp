@@ -63,20 +63,21 @@ void CExampleNode::Run()
 		message.kicker = "test";
 		message.timestamp = nodeutils::GetUnixTimestampMs();
 
-		if( count % 5 == 0 )
-		{
+		//if( count % 5 != 0 )
+		//{
 			DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
 
 			if( ret != DDS::RETCODE_OK )
 			{
 				LOG( ERROR ) << "Error write returned: " << ret;
 			}
-		}
+		//s}
 
+		count++;
 
 		//Wait for acknowledgement
-		DDS::Duration_t timeout = { 30, 0 };
-		_eventWriter->wait_for_acknowledgments( timeout );
+//		DDS::Duration_t timeout = { 30, 0 };
+//		_eventWriter->wait_for_acknowledgments( timeout );
 
 		// Handle received messages
 		HandleWaitCondition();
@@ -120,19 +121,21 @@ void CExampleNode::HandleWaitCondition()
 	waitSet->attach_condition( condition );
 
 	DDS::ConditionSeq conditions;
-	DDS::PublicationMatchedStatus matches = { 0, 0, 0, 0, 0 };
+	DDS::SubscriptionMatchedStatus matches = { 0, 0, 0, 0, 0 };
 	DDS::Duration_t timeout = { 30, 0 };
 
-	do {
-	  if ( waitSet->wait(conditions, timeout ) != DDS::RETCODE_OK ) {
-		throw( "wait condition failed." );
+	//do {
+	  if ( waitSet->wait(conditions, timeout ) != DDS::RETCODE_OK )
+	  {
+		LOG( ERROR ) << "wait condition failed.";
 	  }
 
-	  if ( _writer->get_publication_matched_status( matches ) != ::DDS::RETCODE_OK ) {
-		throw( "Publication matched status failed." );
+	  if ( _reader->get_subscription_matched_status( matches ) != DDS::RETCODE_OK )
+	  {
+		LOG( ERROR ) << "Publication matched status failed.";
 	  }
 
-	} while ( matches.current_count < 1 );
+	//} while ( matches.current_count > 0 );
 
 	waitSet->detach_condition( condition );
 }
