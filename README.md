@@ -6,20 +6,20 @@ approach to distributed realt-time capable framework.
 
 ##Hard Requirements:
 
----OCI OpenDDS install for platform of your choice:
+   OCI OpenDDS install for platform of your choice:
 		
-------Win
-------x32-linux
-------x64-Linux
-------arm-linux
+      Win
+      x32-linux
+      x64-Linux
+      arm-linux
 	
 ##Soft Requirements:
 
----Programming, OS:
-------Eclipse ( used for this project )
-------Win
-------Linux
-------arm-linux	
+   Programming, OS:
+      Eclipse ( used for this project )
+      Win
+      Linux
+      arm-linux	
 
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
