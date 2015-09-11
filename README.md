@@ -4,24 +4,33 @@ OpenDDS Application Skeleton for P2P RTPS Distributed Frameworks. MIT License
 This node was designed to encapsulate the OCI OpenDDS package, enabling researchers and system architects with a peer to peer nodal 
 approach to distributed realt-time capable framework.
 
+Developed and tested in Ubuntu 14.04. One day I may get back into windows. Please make a branch if you would like to persue the WinOS
+development path.
+
 ##Hard Requirements:
 
-   OCI OpenDDS install for platform of your choice:
+   OCI OpenDDS install for platform of your choice:[OCI OpenDDS](http://www.ociweb.com/products/opendds/)
 		
-      Win
-      x32-linux
-      x64-Linux
-      arm-linux
+      [x32-linux](http://www.opendds.org/downloads.html)
+      [x64-Linux](http://www.opendds.org/downloads.html)
+      [arm-linux](http://www.opendds.org/downloads.html)
+      
+      Or on github:[OpenDDS](https://github.com/objectcomputing/OpenDDS)
 	
 ##Soft Requirements:
 
    Programming, OS:
       
-      Eclipse ( used for this project )
-      Win
-      Linux
-      arm-linux	
+      [Eclipse ( used for this project )](https://eclipse.org/)
+      [Linux]http://www.ubuntu.com/)
+      arm-linux: Pick your flavor and platform. Many to choose from
+
+##Code Modifications for Node personalization:
+
+  The code should be farely easy to read. Modification areas are highlights in CAppNodeImpl and CDataReaderListenerImpl. You should not
+  need to modify the base classes nor the main.cpp. 
 
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
-Much improvement is needed.
+Much improvement is needed. Namespaces, utilities, cmake files, etc needed. Plus, better implementation
+after a bit more research and testing.
