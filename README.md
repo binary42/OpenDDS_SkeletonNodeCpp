@@ -11,18 +11,18 @@ development path.
 
    OCI OpenDDS install for platform of your choice:[OCI OpenDDS](http://www.ociweb.com/products/opendds/)
 		
-      [x32-linux](http://www.opendds.org/downloads.html)
-      [x64-Linux](http://www.opendds.org/downloads.html)
-      [arm-linux](http://www.opendds.org/downloads.html)
+      (http://www.opendds.org/downloads.html "x32-Linux")
+      (http://www.opendds.org/downloads.html "x64-linux")
+      (http://www.opendds.org/downloads.html "arm-linux")
       
-      Or on github:[OpenDDS](https://github.com/objectcomputing/OpenDDS)
+      Or on github:(https://github.com/objectcomputing/OpenDDS "OpenDDS")
 	
 ##Soft Requirements:
 
    Programming, OS:
       
-      [Eclipse ( used for this project )](https://eclipse.org/)
-      [Linux]http://www.ubuntu.com/)
+      (https://eclipse.org/ "Eclipse ( used for this project )")
+      (http://www.ubuntu.com/ "Linux")
       arm-linux: Pick your flavor and platform. Many to choose from
 
 ##Code Modifications for Node personalization:
