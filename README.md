@@ -29,6 +29,9 @@ development path.
 
   The code should be farely easy to read. Modification areas are highlights in CAppNodeImpl and CDataReaderListenerImpl. You should not
   need to modify the base classes nor the main.cpp. 
+  
+  The CDataReaderListenerImpl contains all message logic for stubbed conditions. The class allows you to use the DCPS architecture to
+  it's fullest.
 
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
