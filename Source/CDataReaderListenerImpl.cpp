@@ -37,7 +37,9 @@ void CDataReaderListenerImpl::on_liveliness_changed(
 {
 
 }
-
+//--------
+// Modify to fit user specific messages and types
+//-------
 void CDataReaderListenerImpl::on_data_available(DDS::DataReader_ptr reader)
 {
   ExampleApp::EventDataReader_var reader_i =

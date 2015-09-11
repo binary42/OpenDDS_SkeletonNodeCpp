@@ -14,25 +14,26 @@ public:
 	void Initialize();
 	std::string GetName();
 
-	void Run();
+	virtual void Run();
 	void CleanUp();
 
 	//Attributes
 	bool								m_applicationTerminate;
 
+protected:
+	// Methods
+	void virtual InitParticipant();
+	void virtual InitPublisherAndSubscriber();
+
+	void virtual InitTopicinfo();
+	void virtual InitDataWriter();
+	void virtual InitDataReader();
+
 private:
 	// Methods
 	void HandleWaitCondition();
 
-	void InitParticipant();
-	void InitPublisherAndSubscriber();
-
-	void InitTopicinfo();
-	void InitDataWriter();
-	void InitDataReader();
-
 	//Attributes
-	// OpenDDS Domain id
 	DDS::DomainId_t 					_domainID;
 
 	int									_argCount;

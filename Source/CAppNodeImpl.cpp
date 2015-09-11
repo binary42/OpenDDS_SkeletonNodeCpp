@@ -1,6 +1,9 @@
 #include "CAppNodeImpl.h"
 #include "Utility/Utils.h"
 
+/**
+ * Constructor
+ */
 CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, int domainIDIn ):
 	CAppNode( argc, argv, appNameIn )
 	, m_applicationTerminate( false)
@@ -16,11 +19,17 @@ CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, 
 	}
 }
 
+/**
+ * Destructor
+ */
 CAppNodeImpl::~CAppNodeImpl()
 {
 
 }
 
+/**
+ * Void method that initializes all components of the node. Edit as needed.
+ */
 void CAppNodeImpl::Initialize()
 {
 	try
@@ -48,11 +57,18 @@ void CAppNodeImpl::Initialize()
 
 }
 
+/**
+ * Retruns the name of the application.
+ * @return		_appname		string type
+ */
 std::string CAppNodeImpl::GetName()
 {
 	return _appName;
 }
 
+/**
+ * Main execution method. Application specific code goes here. Calls HandleWaiCondition()
+ */
 void CAppNodeImpl::Run()
 {
 	// Example Messaage to write
@@ -78,12 +94,15 @@ void CAppNodeImpl::Run()
 	CleanUp();
 }
 
+/**
+ * Cleans up the DDS objects. Edited as needed.
+ */
 void CAppNodeImpl::CleanUp()
 {
 	LOG( INFO ) << "Cleaning up application...";
 	try
 	{
-		// Clean-up!
+		// Clean-up
 		_participant->delete_contained_entities();
 
 		_domainParticipantFactory->delete_participant( _participant );
@@ -96,6 +115,10 @@ void CAppNodeImpl::CleanUp()
 	}
 }
 
+/**
+ * Handles zero copy message sets. Consider your requirements and edit timeout nad matched status bits as needed.
+ * QoS should drive all of you design decisions.
+ */
 void CAppNodeImpl::HandleWaitCondition()
 {
 	// Block until Subscriber is available
@@ -122,6 +145,10 @@ void CAppNodeImpl::HandleWaitCondition()
 	waitSet->detach_condition( condition );
 }
 
+/**
+ * Initializes the domain participant factory and participant DDS entities. Consider Qos
+ * for design changes.
+ */
 void CAppNodeImpl::InitParticipant()
 {
 	// Init the participant factory and participant
@@ -130,22 +157,23 @@ void CAppNodeImpl::InitParticipant()
 	_participant = _domainParticipantFactory->create_participant( _domainID, PARTICIPANT_QOS_DEFAULT,
 																							DDS::DomainParticipantListener::_nil(),
 																							OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-
-	// Exit is nil
 	if( !_participant )
 	{
 		LOG( ERROR ) << "Create Participant Failed.";
 	}
 }
 
+/**
+ * Initializes the data pubisler and subscriber  DDS entities. Consider Qos
+ * for design changes. Comment out or remove what is not need. You can also create the subs and pubs
+ * and not use them.
+ */
 void CAppNodeImpl::InitPublisherAndSubscriber()
 {
 	// Publisher
 	_publisher = _participant->create_publisher( PUBLISHER_QOS_DEFAULT,
 																	DDS::PublisherListener::_nil(),
 																	OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-
-	// Exit if nil
 	if( !_publisher )
 	{
 		LOG( ERROR ) << "Create publisher failed.";
@@ -161,6 +189,10 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 	}
 }
 
+/**
+ * Initializes the topic. You will need to modify and or add to this black for varying data types and
+ * topics given your message requirements and QoS design decisions.
+ */
 void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
@@ -179,20 +211,22 @@ void CAppNodeImpl::InitTopicinfo()
 														TOPIC_QOS_DEFAULT,
 														DDS::TopicListener::_nil(),
 														OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-
 	if( !_topic )
 	{
 		LOG( ERROR ) << "Create topic failed";
 	}
 }
 
+/**
+ * initializes the data writer. Consider your design QoS design requirements. Can ignore if not
+ * needed.
+ */
 void CAppNodeImpl::InitDataWriter()
 {
 	// Create the data writer
 	_writer = _publisher->create_datawriter( _topic, DATAWRITER_QOS_DEFAULT,
 																DDS::DataWriterListener::_nil(),
 																OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-
 	if( !_writer )
 	{
 		LOG( ERROR ) << "Create datawriter failed";
@@ -204,9 +238,11 @@ void CAppNodeImpl::InitDataWriter()
 	{
 		LOG( ERROR ) << "_narrow failed";
 	}
-
 }
 
+/**
+ * Initializes the data reader. As with the writer, may not need. Modify with QoS design in mind.
+ */
 void CAppNodeImpl::InitDataReader()
 {
 	// Data Reader
@@ -215,7 +251,6 @@ void CAppNodeImpl::InitDataReader()
 	_reader = _subscriber->create_datareader( _topic, DATAREADER_QOS_DEFAULT,
 												_listener,
 												OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-
 	if( !_reader )
 	{
 		LOG( ERROR ) << " Create data reader failed";

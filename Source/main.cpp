@@ -6,12 +6,14 @@
 #include "Utility/Utils.h"
 
 #define ELOG_CONFIG_PATH "Config/log.conf"
+
+// Specify domain application belongs and name.
 #define DOMAIN_ID 0
 #define APP_NAME "ExampleApp"
 
 INITIALIZE_EASYLOGGINGPP
 
-int main( int argc, ACE_TCHAR *argv[] )
+void InitializeLogger( CAppNodeImpl *applicationIn )
 {
 	// Load logger config file
 	el::Configurations logConfig( ELOG_CONFIG_PATH );
@@ -19,13 +21,14 @@ int main( int argc, ACE_TCHAR *argv[] )
 	// Set configuration
 	el::Loggers::reconfigureAllLoggers( logConfig );
 
+	LOG( INFO ) << "<-------------------------------->";
+	LOG( INFO ) << "<--------" << applicationIn->GetName();
+	LOG( INFO ) << "<-------------------------------->";
+}
+
+int main( int argc, ACE_TCHAR *argv[] )
+{
 	std::unique_ptr<CAppNodeImpl> application( new CAppNodeImpl( argc, argv, APP_NAME, DOMAIN_ID ) );
-
-	//CAppNodeImpl *application = new CAppNodeImpl( argc, argv, APP_NAME, DOMAIN_ID );
-
-	LOG( INFO ) << "<-------------------------------->";
-	LOG( INFO ) << "<--------" << application->GetName();
-	LOG( INFO ) << "<-------------------------------->";
 
 	try
 	{

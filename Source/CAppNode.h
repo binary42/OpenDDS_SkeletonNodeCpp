@@ -30,10 +30,10 @@ public:
 	virtual void Run() 								= 0;
 
 	// Attributes
-	std::vector<std::string> 				m_commandLineArguments;
+	std::vector<std::string> 						m_commandLineArguments;
 
 protected:
 	// Attributes
-	std::string								_appName;
-	CSignalHandler							*_psignalHandler;
+	std::string										_appName;
+	CSignalHandler									*_psignalHandler;
 };

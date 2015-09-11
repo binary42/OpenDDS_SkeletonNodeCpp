@@ -16,6 +16,7 @@ approach to distributed realt-time capable framework.
 ##Soft Requirements:
 
    Programming, OS:
+      
       Eclipse ( used for this project )
       Win
       Linux
