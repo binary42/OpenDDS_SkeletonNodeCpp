@@ -11,7 +11,7 @@ development path.
 
    OCI OpenDDS install for platform of your choice:[OCI OpenDDS](http://www.ociweb.com/products/opendds/)
 		
-      http://www.opendds.org/downloads.html "x32-Linux"
+     [http://www.opendds.org/downloads.html "x32-Linux"]
       (http://www.opendds.org/downloads.html "x64-linux")
       (http://www.opendds.org/downloads.html "arm-linux")
       
