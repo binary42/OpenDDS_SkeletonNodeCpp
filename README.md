@@ -14,11 +14,9 @@ development path.
 
    OCI OpenDDS install for platform of your choice:[OCI OpenDDS](http://www.ociweb.com/products/opendds/)
 		
-       http://www.opendds.org/downloads.html "x32-Linux"
-       http://www.opendds.org/downloads.html "x64-linux"
-       http://www.opendds.org/downloads.html "arm-linux"
+       OpenDDS OS Support: http://www.opendds.org/downloads.html 
       
-      Or on github: https://github.com/objectcomputing/OpenDDS "OpenDDS"
+      Or on github: https://github.com/objectcomputing/OpenDDS
 	
 ##Soft Requirements:
 
