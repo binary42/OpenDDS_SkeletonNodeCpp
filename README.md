@@ -7,22 +7,25 @@ approach to distributed realt-time capable framework.
 Developed and tested in Ubuntu 14.04. One day I may get back into windows. Please make a branch if you would like to persue the WinOS
 development path.
 
+   NOTE: I am learning this as I go along. Please consult the OpenDDS manual for further information on utilizing DDS and 
+   QoS to best develop your applications: http://www.opendds.org/documentation.html
+
 ##Hard Requirements:
 
    OCI OpenDDS install for platform of your choice:[OCI OpenDDS](http://www.ociweb.com/products/opendds/)
 		
-     [http://www.opendds.org/downloads.html "x32-Linux"]
-      (http://www.opendds.org/downloads.html "x64-linux")
-      (http://www.opendds.org/downloads.html "arm-linux")
+       http://www.opendds.org/downloads.html "x32-Linux"
+       http://www.opendds.org/downloads.html "x64-linux"
+       http://www.opendds.org/downloads.html "arm-linux"
       
-      Or on github:(https://github.com/objectcomputing/OpenDDS "OpenDDS")
+      Or on github: https://github.com/objectcomputing/OpenDDS "OpenDDS"
 	
 ##Soft Requirements:
 
    Programming, OS:
       
-      (https://eclipse.org/ "Eclipse ( used for this project )")
-      (http://www.ubuntu.com/ "Linux")
+      https://eclipse.org/ "Eclipse ( used for this project )"
+      http://www.ubuntu.com/ "Linux"
       arm-linux: Pick your flavor and platform. Many to choose from
 
 ##Code Modifications for Node personalization:
