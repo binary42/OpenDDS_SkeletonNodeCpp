@@ -39,6 +39,10 @@ development path.
   The CDataReaderListenerImpl contains all message logic for stubbed conditions. The class allows you to use the DCPS architecture to
   it's fullest.
 
+#Running the Node:
+
+    ./OpenDDS_SkeletonNodeCpp -DCPSConfigFile Config/rtps.ini
+
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
 Much improvement is needed. Namespaces, utilities, cmake files, etc needed. Plus, better implementation
