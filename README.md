@@ -37,7 +37,7 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
   
       #include "orbsvcs/TimeBase.idl"
 
-      module ExampleApp
+      module imuapp
       {
 	     #pragma DCPS_DATA_TYPE "ImuNodeApp::Data"
 	     #pragma DCPS_DATA_KEY "ExampleApp::Data name"
