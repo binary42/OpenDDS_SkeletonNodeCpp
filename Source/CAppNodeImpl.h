@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
+#include "../OpenDDS/Source/Cpp/Generated/ImuDataTypeSupportImpl.h"
 #include "CAppNode.h"
-#include "CDataReaderListenerImpl.h"
+#include "CIMUInterface.h"
 
 class CAppNodeImpl : CAppNode
 {
@@ -34,6 +34,9 @@ private:
 	void HandleWaitCondition();
 
 	//Attributes
+	std::unique_ptr<CIMUInterface> 		_imuInterface;
+	RTIMU_DATA							_imuData;
+
 	DDS::DomainId_t 					_domainID;
 
 	int									_argCount;
@@ -44,10 +47,7 @@ private:
 
 	// Publisher
 	DDS::Publisher_ptr 					_publisher;
-	ExampleApp::EventTypeSupport_ptr 	_exampleTypeSupport;
-
-	// Subscriber
-	DDS::Subscriber_ptr					_subscriber;
+	ImuNodeApp::ImuDataTypeSupport_ptr 	_imuDataTypeSupport;
 
 	// Topic info
 	CORBA::String_var 					_topicTypeName;
@@ -55,12 +55,5 @@ private:
 
 	// Data writer
 	DDS::DataWriter_ptr					_writer;
-	ExampleApp::EventDataWriter_ptr 	_eventWriter;
-
-	// Data reader
-	DDS::DataReaderListener_ptr			_listener;
-	DDS::DataReader_ptr					_reader;
-
-	ExampleApp::EventDataReader_ptr		_readerI;
-
+	ImuNodeApp::DataWriter_ptr 			_eventWriter;
 };

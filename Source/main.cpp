@@ -9,7 +9,7 @@
 
 // Specify domain application belongs and name.
 #define DOMAIN_ID 0
-#define APP_NAME "ExampleApp"
+#define APP_NAME "ImuNodeApp"
 
 INITIALIZE_EASYLOGGINGPP
 

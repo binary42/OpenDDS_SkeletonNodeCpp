@@ -9,14 +9,18 @@ CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, 
 	, m_applicationTerminate( false)
 	, _domainID( domainIDIn )
 	, _argCount( argc ), _domainParticipantFactory( nullptr), _participant( nullptr )
-	, _publisher( nullptr ), _exampleTypeSupport( nullptr ), _subscriber( nullptr)
-	, _topic( nullptr ), _writer( nullptr ), _eventWriter( nullptr ),  _listener( nullptr )
-	, _reader( nullptr), _readerI( nullptr )
+	,  _imuDataTypeSupport( nullptr )
+	, _topic( nullptr ), _writer( nullptr ), _eventWriter( nullptr )
+
 {
 	for( int i = 0; i < _argCount; ++i)
 	{
 		_pargVect[i] = argv[i];
 	}
+
+	// Imu interface pointer
+	_imuInterface->Setup( 0.02, true, true, true );
+
 }
 
 /**
@@ -72,13 +76,49 @@ std::string CAppNodeImpl::GetName()
 void CAppNodeImpl::Run()
 {
 	// Example Messaage to write
-	ExampleApp::Event message;
+	ImuNodeApp::TImuData message;
 
 	while( !_psignalHandler->GotExitSignal() )
 	{
-		// Write out example message to ourselves
-		message.kicker = "test";
-		message.timestamp = nodeutils::GetUnixTimestampMs();
+		// Get the IMU data
+		_imuData = _imuInterface->GetPoseInfo();
+
+		// Write out the IMU data
+		message.name = "OpenROV IMU Data";
+		message.timestamp = _imuData.timestamp;
+
+		message.accelValid 	= _imuData.accelValid;
+		message.accelX 		= _imuData.accel[0];
+		message.accelY		= _imuData.accel[1];
+		message.accelZ		= _imuData.accel[2];
+
+		message.fusionPoseValid = _imuData.fusionPoseValid;
+		message.fusionPoseX		= _imuData.fusionPose[0];
+		message.fusionPosey		= _imuData.fusionPose[1];
+		message.fusionposez		= _imuData.fusionPose[2];
+
+		message.fusionQValid	= _imuData.fusionQPoseValid;
+		message.fusionQ1Pose	= _imuData.fusionQPose[0];
+		message.fusionQ2Pose	= _imuData.fusionQPose[1];
+		message.fusionQ3Pose	= _imuData.fusionQPose[2];
+
+		message.gyroValid		= _imuData.gyroValid;
+		message.gyroX			= _imuData.gyro[0];
+		message.gyroY			= _imuData.gyro[1];
+		message.gyroZ			= _imuData.gyro[2];
+
+		message.magValid		= _imuData.compassValid;
+		message.magX			= _imuData.compass[0];
+		message.magY			= _imuData.compass[1];
+		message.magZ			= _imuData.compass[2];
+
+		message.pressureValid	= _imuData.pressureValid;
+		message.pressure		= _imuData.pressure;
+
+		message.humidValid		= _imuData.humidity;
+
+		message.tempValid		= _imuData.temperatureValid;
+		message.temperature		= _imuData.temperature;
 
 		DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
 
@@ -179,14 +219,14 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 		LOG( ERROR ) << "Create publisher failed.";
 	}
 
-	// Subscriber
-	_subscriber = _participant->create_subscriber( SUBSCRIBER_QOS_DEFAULT,
-													DDS::SubscriberListener::_nil(),
-													OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-	if( !_subscriber )
-	{
-		LOG( ERROR ) << "Create subscriber failed.";
-	}
+	// Subscriber stub
+//	_subscriber = _participant->create_subscriber( SUBSCRIBER_QOS_DEFAULT,
+//													DDS::SubscriberListener::_nil(),
+//													OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+//	if( !_subscriber )
+//	{
+//		LOG( ERROR ) << "Create subscriber failed.";
+//	}
 }
 
 /**
@@ -196,18 +236,18 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
-	_exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
+	_imuDataTypeSupport = new ImuNodeApp::ImuDataTypeSupportImpl();
 
 	// Exit if retcode ! ok
-	if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant, "" ) )
+	if( DDS::RETCODE_OK != _imuDataTypeSupport->register_type( _participant, "" ) )
 	{
 		LOG( ERROR ) << "register type failed.";
 	}
 
 	// Create a topic
-	_topicTypeName = _exampleTypeSupport->get_type_name();
+	_topicTypeName = _imuDataTypeSupport->get_type_name();
 
-	_topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
+	_topic = _participant->create_topic( "ImuDataTopic", _topicTypeName.in(),
 														TOPIC_QOS_DEFAULT,
 														DDS::TopicListener::_nil(),
 														OpenDDS::DCPS::DEFAULT_STATUS_MASK );
@@ -232,7 +272,7 @@ void CAppNodeImpl::InitDataWriter()
 		LOG( ERROR ) << "Create datawriter failed";
 	}
 
-	_eventWriter = ExampleApp::EventDataWriter::_narrow( _writer );
+	_eventWriter = ImuNodeApp::ImuDataDataWriter::_narrow( _writer );
 
 	if( !_eventWriter )
 	{
@@ -245,22 +285,22 @@ void CAppNodeImpl::InitDataWriter()
  */
 void CAppNodeImpl::InitDataReader()
 {
-	// Data Reader
-	_listener = new CDataReaderListenerImpl;
-
-	_reader = _subscriber->create_datareader( _topic, DATAREADER_QOS_DEFAULT,
-												_listener,
-												OpenDDS::DCPS::DEFAULT_STATUS_MASK );
-	if( !_reader )
-	{
-		LOG( ERROR ) << " Create data reader failed";
-	}
-
-	_readerI = ExampleApp::EventDataReader::_narrow( _reader );
-
-	if( !_readerI )
-	{
-
-		LOG( ERROR ) << " _narrow failed";
-	}
+	// Data Reader stub
+//	_listener = new CDataReaderListenerImpl;
+//
+//	_reader = _subscriber->create_datareader( _topic, DATAREADER_QOS_DEFAULT,
+//												_listener,
+//												OpenDDS::DCPS::DEFAULT_STATUS_MASK );
+//	if( !_reader )
+//	{
+//		LOG( ERROR ) << " Create data reader failed";
+//	}
+//
+//	_readerI = ImuNodeApp::DataReader::_narrow( _reader );
+//
+//	if( !_readerI )
+//	{
+//
+//		LOG( ERROR ) << " _narrow failed";
+//	}
 }

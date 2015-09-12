@@ -26,6 +26,7 @@
 								<option id="gnu.cpp.compiler.option.include.paths.1931440570" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/home/borotech/Development/DDS"/>
 									<listOptionValue builtIn="false" value="../ThirdPartyLibs/RTIMU/include"/>
+									<listOptionValue builtIn="false" value="../ThirdPartyLibs/RTIMU/include/IMUDrivers"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers/TAO/orbsvcs/"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers/ace"/>

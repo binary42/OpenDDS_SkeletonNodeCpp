@@ -35,7 +35,7 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
   
   IDL:
   
-      #include "orbsvcs/TimeBase.idl"
+  #include "orbsvcs/TimeBase.idl"
 
   module ImuNodeApp
   {
