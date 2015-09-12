@@ -42,7 +42,7 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
 	     #pragma DCPS_DATA_TYPE "ImuNodeApp::Data"
 	     #pragma DCPS_DATA_KEY "ExampleApp::Data name"
 	
-	     struct Data
+	     struct TImuData
 	     {
 		    string name;
 		    
