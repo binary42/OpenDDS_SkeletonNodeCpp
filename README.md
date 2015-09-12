@@ -46,32 +46,53 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
 	     {
 		    string name;
 		    
-		    bool
-		    float
-		    float
-		    float
+		    bool	fusionPoseValid;
+		    // Euler
+		    float	fusionPoseX
+		    float	fusionPosey
+		    float	fusionposez
 		    
-		    bool
-		    float
-		    float
-		    float
+		    // Quarternion
+		    bool	fusionQValid;
+		    bool	fusionQ1Pose;
+		    float	fusionQ2Pose;
+		    float	fusionQ3Pose
+		    float	fusionQ4Pose;
 		    
-		    bool
-		    float
-		    flaot
-		    float
+		    // Gyrp
+		    bool	gyroValid;
+		    float	gyroX;
+		    flaot	gyroY;
+		    float	gyroZ;
 		    
-		    bool
-		    float
+		    // Accel
+		    bool	accelValid;
+		    float	accelX;
+		    float	accelY;
+		    float	accelZ;
 		    
-		    bool
-		    float
-		
+		    // Mag
+		    bool	magValid;
+		    float	magX;
+		    float	magY;
+		    float	magZ;
+		    
+		    // Pressure
+		    bool	pressureValid;
+		    flat	pressure;
+		    
+		    // Temp
+		    bool	tempValid;
+		    float 	temperature;
+		    
+		    //Humdity
+			bool	humidValid;
+			float	humidity;
+			
      		TimeBase::TimeT timestamp;
 	     };
       };
 	 
-
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
 Much improvement is needed. Namespaces, utilities, cmake files, etc needed. Plus, better implementation
