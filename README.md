@@ -9,12 +9,14 @@ development path.
 
    NOTE: I am learning this as I go along. Please consult the OpenDDS manual for further information on utilizing DDS and 
    QoS to best develop your applications: http://www.opendds.org/documentation.html
+   
+   Also, if you clone this repo, use the --recursive flag, otherwise you will not pull doen required submodules.
 
 ##Hard Requirements:
 
-   OCI OpenDDS install for platform of your choice:[OCI OpenDDS](http://www.ociweb.com/products/opendds/)
+   OCI OpenDDS install for platform of your choice: [OCI OpenDDS](http://www.ociweb.com/products/opendds/)
 		
-       OpenDDS OS Support: http://www.opendds.org/downloads.html 
+      OpenDDS OS Support: http://www.opendds.org/downloads.html 
       
       Or on github: https://github.com/objectcomputing/OpenDDS
 	
