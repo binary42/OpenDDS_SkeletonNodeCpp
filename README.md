@@ -10,7 +10,7 @@ development path.
    NOTE: I am learning this as I go along. Please consult the OpenDDS manual for further information on utilizing DDS and 
    QoS to best develop your applications: http://www.opendds.org/documentation.html
    
-   Also, if you clone this repo, use the --recursive flag, otherwise you will not pull doen required submodules.
+   Also, if you clone this repo, use the --recursive flag, otherwise you will not pull down required submodules.
 
 ##Hard Requirements:
 
