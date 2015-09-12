@@ -1,4 +1,7 @@
 # OpenDDS_SkeletonNode
+
+Modeled from spiderkeys RTI impl. https://github.com/spiderkeys/SensorPublisher
+
 OpenDDS Application Skeleton for P2P RTPS Distributed Frameworks. MIT License
 
 This node was designed to encapsulate the OCI OpenDDS package, enabling researchers and system architects with a peer to peer nodal 
