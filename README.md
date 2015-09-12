@@ -37,61 +37,61 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
   
       #include "orbsvcs/TimeBase.idl"
 
-      module imuapp
-      {
-	     #pragma DCPS_DATA_TYPE "ImuNodeApp::Data"
-	     #pragma DCPS_DATA_KEY "ExampleApp::Data name"
-	
-	     struct TImuData
-	     {
-		    string name;
-		    
-		    bool	fusionPoseValid;
-		    // Euler
-		    float	fusionPoseX
-		    float	fusionPosey
-		    float	fusionposez
-		    
-		    // Quarternion
-		    bool	fusionQValid;
-		    bool	fusionQ1Pose;
-		    float	fusionQ2Pose;
-		    float	fusionQ3Pose
-		    float	fusionQ4Pose;
-		    
-		    // Gyrp
-		    bool	gyroValid;
-		    float	gyroX;
-		    flaot	gyroY;
-		    float	gyroZ;
-		    
-		    // Accel
-		    bool	accelValid;
-		    float	accelX;
-		    float	accelY;
-		    float	accelZ;
-		    
-		    // Mag
-		    bool	magValid;
-		    float	magX;
-		    float	magY;
-		    float	magZ;
-		    
-		    // Pressure
-		    bool	pressureValid;
-		    flat	pressure;
-		    
-		    // Temp
-		    bool	tempValid;
-		    float 	temperature;
-		    
-		    //Humdity
-			bool	humidValid;
-			float	humidity;
-			
-     		TimeBase::TimeT timestamp;
-	     };
-      };
+  module ImuNodeApp
+  {
+     #pragma DCPS_DATA_TYPE "ImuNodeApp::Data"
+     #pragma DCPS_DATA_KEY "ImuNodeApp::Data name"
+
+     struct TImuData
+     {
+	    string name;
+	    
+	    boolean	fusionPoseValid;
+	    // Euler
+	    float	fusionPoseX;
+	    float	fusionPosey;
+	    float	fusionposez;
+	    
+	    // Quarternion
+	    boolean	fusionQValid;
+	    float	fusionQ1Pose;
+	    float	fusionQ2Pose;
+	    float	fusionQ3Pose;
+	    float	fusionQ4Pose;
+	    
+	    // Gyrp
+	    boolean	gyroValid;
+	    float	gyroX;
+	    float	gyroY;
+	    float	gyroZ;
+	    
+	    // Accel
+	    boolean	accelValid;
+	    float	accelX;
+	    float	accelY;
+	    float	accelZ;
+	    
+	    // Mag
+	    boolean	magValid;
+	    float	magX;
+	    float	magY;
+	    float	magZ;
+	    
+	    // Pressure
+	    boolean	pressureValid;
+	    float	pressure;
+	    
+	    // Temp
+	    boolean	tempValid;
+	    float 	temperature;
+	    
+	    //Humdity
+		boolean	humidValid;
+		float	humidity;
+		
+ 		TimeBase::TimeT timestamp;
+     };
+  };
 	 
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
