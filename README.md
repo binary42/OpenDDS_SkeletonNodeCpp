@@ -35,16 +35,16 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
   
   IDL:
   
-  #include "orbsvcs/TimeBase.idl"
+ #include "orbsvcs/TimeBase.idl"
 
-  module ImuNodeApp
-  {
-     #pragma DCPS_DATA_TYPE "ImuNodeApp::Data"
-     #pragma DCPS_DATA_KEY "ImuNodeApp::Data name"
+ module ImuNodeApp
+ {
+	#pragma DCPS_DATA_TYPE "ImuNodeApp::TImuData"
+	#pragma DCPS_DATA_KEY  "ImuNodeApp::TImuData name"
 
-     struct TImuData
-     {
-	    string name;
+	struct TImuData
+	{
+		string name;
 	    
 	    boolean	fusionPoseValid;
 	    // Euler
@@ -77,21 +77,21 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
 	    float	magY;
 	    float	magZ;
 	    
-	    // Pressure
-	    boolean	pressureValid;
-	    float	pressure;
+    	// Pressure
+    	boolean	pressureValid;
+    	float	pressure;
 	    
-	    // Temp
-	    boolean	tempValid;
-	    float 	temperature;
+    	// Temp
+    	boolean	tempValid;
+    	float 	temperature;
 	    
-	    //Humdity
+	    	//Humdity
 		boolean	humidValid;
 		float	humidity;
 		
- 		TimeBase::TimeT timestamp;
-     };
-  };
+		TimeBase::TimeT timestamp;
+	};
+ };
 	 
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
