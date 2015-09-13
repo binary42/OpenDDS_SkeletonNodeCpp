@@ -17,7 +17,7 @@ This node was designed to encapsulate the RTIMU Demo Application GUI written in 
    
   Receives IMU data over the "ImuData" topic. 
   
-  IDL:
+##IDL:
   
   #include "orbsvcs/TimeBase.idl"
 
