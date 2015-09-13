@@ -33,7 +33,7 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
   
   Publishes IMU data over the "ImuData" topic. 
   
-  IDL:
+##IDL:
   
   #include "orbsvcs/TimeBase.idl"
 
