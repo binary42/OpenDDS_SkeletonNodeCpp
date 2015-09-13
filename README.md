@@ -1,38 +1,81 @@
-# OpenDDS_SkeletonNode
-OpenDDS Application Skeleton for P2P RTPS Distributed Frameworks. MIT License
+# OpenDDS_SkeletonNode Imlementation - RTIMU Demo Application Wrapper
+OpenDDS Application Skeleton for P2P RTPS Distributed Frameworks.
 
-This node was designed to encapsulate the OCI OpenDDS package, enabling researchers and system architects with a peer to peer nodal 
-approach to distributed realt-time capable framework.
-
-Developed and tested in Ubuntu 14.04. One day I may get back into windows. Please make a branch if you would like to persue the WinOS
-development path.
-
-   NOTE: I am learning this as I go along. Please consult the OpenDDS manual for further information on utilizing DDS and 
-   QoS to best develop your applications: http://www.opendds.org/documentation.html
+This node was designed to encapsulate the RTIMU Demo Application GUI written in C++ using Qt as the user interface builder.
 
 ##Hard Requirements:
 
    OCI OpenDDS install for platform of your choice:[OCI OpenDDS](http://www.ociweb.com/products/opendds/)
 		
-       OpenDDS OS Support: http://www.opendds.org/downloads.html 
-      
-      Or on github: https://github.com/objectcomputing/OpenDDS
+      OpenDDS OS Support: http://www.opendds.org/downloads.html 
+      Qt
 	
-##Soft Requirements:
+##Usage Notes
 
-   Programming, OS:
-      
-      https://eclipse.org/ "Eclipse ( used for this project )"
-      http://www.ubuntu.com/ "Linux"
-      arm-linux: Pick your flavor and platform. Many to choose from
-
-##Code Modifications for Node personalization:
-
-  The code should be farely easy to read. Modification areas are highlights in CAppNodeImpl and CDataReaderListenerImpl. You should not
-  need to modify the base classes nor the main.cpp. 
+   This node wraps the demo gui for the RTIMULib, semonstrating the ability to recieve IMU data from a remote 
+   system, communicating over DDS with the Best Effort QoS parameter.
+   
+  Receives IMU data over the "ImuData" topic. 
   
-  The CDataReaderListenerImpl contains all message logic for stubbed conditions. The class allows you to use the DCPS architecture to
-  it's fullest.
+  IDL:
+  
+  #include "orbsvcs/TimeBase.idl"
+
+  module ImuNodeApp
+  {
+	#pragma DCPS_DATA_TYPE "ImuNodeApp::TImuData"
+	#pragma DCPS_DATA_KEY  "ImuNodeApp::TImuData name"
+
+	struct TImuData
+	{
+		string name;
+	    
+	    boolean	fusionPoseValid;
+	    // Euler
+	    float	fusionPoseX;
+	    float	fusionPosey;
+	    float	fusionposez;
+	    
+	    // Quarternion
+	    boolean	fusionQValid;
+	    float	fusionQ1Pose;
+	    float	fusionQ2Pose;
+	    float	fusionQ3Pose;
+	    float	fusionQ4Pose;
+	    
+	    // Gyrp
+	    boolean	gyroValid;
+	    float	gyroX;
+	    float	gyroY;
+	    float	gyroZ;
+	    
+	    // Accel
+	    boolean	accelValid;
+	    float	accelX;
+	    float	accelY;
+	    float	accelZ;
+	    
+	    // Mag
+	    boolean	magValid;
+	    float	magX;
+	    float	magY;
+	    float	magZ;
+	    
+    	// Pressure
+    	boolean	pressureValid;
+    	float	pressure;
+	    
+    	// Temp
+    	boolean	tempValid;
+    	float 	temperature;
+	    
+	    	//Humdity
+		boolean	humidValid;
+		float	humidity;
+		
+		TimeBase::TimeT timestamp;
+	 };
+  };
 
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 

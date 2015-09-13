@@ -8,8 +8,8 @@
 #include <dds/DCPS/LocalObject.h>
 #include <dds/DCPS/Definitions.h>
 
-#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportC.h"
-#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
+#include "../OpenDDS/Source/Cpp/Generated/ImuDataTypeSupportC.h"
+#include "../OpenDDS/Source/Cpp/Generated/ImuDataTypeSupportImpl.h"
 
 #include <iostream>
 

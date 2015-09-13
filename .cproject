@@ -25,6 +25,7 @@
 								<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.1928363093" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1931440570" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/home/borotech/Development/DDS"/>
+									<listOptionValue builtIn="false" value="/usr/include/qt5"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers/TAO/orbsvcs/"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers/ace"/>
@@ -90,7 +91,7 @@
 							<tool command="g++ -std=c++11" id="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release.1869194458" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.exe.release">
 								<option id="gnu.cpp.compiler.exe.release.option.optimization.level.838353614" name="Optimization Level" superClass="gnu.cpp.compiler.exe.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.exe.release.option.debugging.level.1961032575" name="Debug Level" superClass="gnu.cpp.compiler.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
-								<option id="gnu.cpp.compiler.option.include.paths.2118146549" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.cpp.compiler.option.include.paths.2118146549" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/home/borotech/Development/DDS"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers/TAO/orbsvcs/"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers"/>
@@ -106,13 +107,13 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.exe.release.1828234231" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.exe.release"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.release.308953166" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.release">
-								<option id="gnu.cpp.link.option.libs.2050534006" superClass="gnu.cpp.link.option.libs" valueType="libs">
+								<option id="gnu.cpp.link.option.libs.2050534006" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="OpenDDS_Dcps"/>
 									<listOptionValue builtIn="false" value="TAO_AnyTypeCode"/>
 									<listOptionValue builtIn="false" value="ACE"/>
 									<listOptionValue builtIn="false" value="TAO"/>
 								</option>
-								<option id="gnu.cpp.link.option.paths.204199357" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
+								<option id="gnu.cpp.link.option.paths.204199357" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/home/borotech/Development/DDS/lib"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers/lib"/>
 								</option>
