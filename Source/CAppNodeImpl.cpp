@@ -9,8 +9,8 @@ CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, 
 	, m_applicationTerminate( false)
 	, _domainID( domainIDIn )
 	, _argCount( argc ), _domainParticipantFactory( nullptr), _participant( nullptr )
-	,  _imuDataTypeSupport( nullptr )
-	, _topic( nullptr ), _writer( nullptr ), _eventWriter( nullptr )
+	, _publisher( nullptr), _imuDataTypeSupport( nullptr )
+	, _topic( nullptr ), _writer( nullptr )
 
 {
 	for( int i = 0; i < _argCount; ++i)
@@ -88,29 +88,29 @@ void CAppNodeImpl::Run()
 		message.timestamp = _imuData.timestamp;
 
 		message.accelValid 	= _imuData.accelValid;
-		message.accelX 		= _imuData.accel[0];
-		message.accelY		= _imuData.accel[1];
-		message.accelZ		= _imuData.accel[2];
+		message.accelX 		= _imuData.accel.data( 0 );
+		message.accelY		= _imuData.accel.data( 0 );
+		message.accelZ		= _imuData.accel.data( 0 );
 
 		message.fusionPoseValid = _imuData.fusionPoseValid;
-		message.fusionPoseX		= _imuData.fusionPose[0];
-		message.fusionPosey		= _imuData.fusionPose[1];
-		message.fusionposez		= _imuData.fusionPose[2];
+		message.fusionPoseX		= _imuData.fusionPose.data( 0 );
+		message.fusionPosey		= _imuData.fusionPose.data( 1 );
+		message.fusionposez		= _imuData.fusionPose.data( 2 );
 
 		message.fusionQValid	= _imuData.fusionQPoseValid;
-		message.fusionQ1Pose	= _imuData.fusionQPose[0];
-		message.fusionQ2Pose	= _imuData.fusionQPose[1];
-		message.fusionQ3Pose	= _imuData.fusionQPose[2];
+		message.fusionQ1Pose	= _imuData.fusionQPose.data( 0 );
+		message.fusionQ2Pose	= _imuData.fusionQPose.data( 1 );
+		message.fusionQ3Pose	= _imuData.fusionQPose.data( 2 );
 
 		message.gyroValid		= _imuData.gyroValid;
-		message.gyroX			= _imuData.gyro[0];
-		message.gyroY			= _imuData.gyro[1];
-		message.gyroZ			= _imuData.gyro[2];
+		message.gyroX			= _imuData.gyro.data( 0 );
+		message.gyroY			= _imuData.gyro.data( 1 );
+		message.gyroZ			= _imuData.gyro.data( 2 );
 
 		message.magValid		= _imuData.compassValid;
-		message.magX			= _imuData.compass[0];
-		message.magY			= _imuData.compass[1];
-		message.magZ			= _imuData.compass[2];
+		message.magX			= _imuData.compass.data( 0 );
+		message.magY			= _imuData.compass.data( 1 );
+		message.magZ			= _imuData.compass.data( 2 );
 
 		message.pressureValid	= _imuData.pressureValid;
 		message.pressure		= _imuData.pressure;
@@ -236,7 +236,7 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
-	_imuDataTypeSupport = new ImuNodeApp::ImuDataTypeSupportImpl();
+	_imuDataTypeSupport = new ImuNodeApp::TImuData_var;
 
 	// Exit if retcode ! ok
 	if( DDS::RETCODE_OK != _imuDataTypeSupport->register_type( _participant, "" ) )

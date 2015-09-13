@@ -55,5 +55,5 @@ private:
 
 	// Data writer
 	DDS::DataWriter_ptr					_writer;
-	ImuNodeApp::DataWriter_ptr 			_eventWriter;
+	ImuNodeApp::TImuData_out			_eventWriter;
 };
