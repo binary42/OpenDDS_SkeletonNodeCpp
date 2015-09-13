@@ -47,7 +47,7 @@ private:
 
 	// Publisher
 	DDS::Publisher_ptr 					_publisher;
-	ImuNodeApp::ImuDataTypeSupport_ptr 	_imuDataTypeSupport;
+	ImuNodeApp::TImuDataTypeSupport_ptr _imuDataTypeSupport;
 
 	// Topic info
 	CORBA::String_var 					_topicTypeName;
@@ -55,5 +55,5 @@ private:
 
 	// Data writer
 	DDS::DataWriter_ptr					_writer;
-	ImuNodeApp::TImuData_out			_eventWriter;
+	ImuNodeApp::TImuDataDataWriter_ptr	_eventWriter;
 };

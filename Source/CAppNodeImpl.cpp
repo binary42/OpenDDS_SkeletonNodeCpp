@@ -10,7 +10,7 @@ CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, 
 	, _domainID( domainIDIn )
 	, _argCount( argc ), _domainParticipantFactory( nullptr), _participant( nullptr )
 	, _publisher( nullptr), _imuDataTypeSupport( nullptr )
-	, _topic( nullptr ), _writer( nullptr )
+	, _topic( nullptr ), _writer( nullptr ), _eventWriter( nullptr )
 
 {
 	for( int i = 0; i < _argCount; ++i)
