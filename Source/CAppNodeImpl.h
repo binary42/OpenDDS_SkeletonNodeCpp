@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
+#include "../OpenDDS/Source/Cpp/Generated/ImuDataTypeSupportImpl.h"
 #include "CAppNode.h"
 #include "CDataReaderListenerImpl.h"
 
@@ -44,7 +44,7 @@ private:
 
 	// Publisher
 	DDS::Publisher_ptr 					_publisher;
-	ExampleApp::EventTypeSupport_ptr 	_exampleTypeSupport;
+	ImuNodeApp::TImuDataTypeSupport_ptr _exampleTypeSupport;
 
 	// Subscriber
 	DDS::Subscriber_ptr					_subscriber;
@@ -55,12 +55,12 @@ private:
 
 	// Data writer
 	DDS::DataWriter_ptr					_writer;
-	ExampleApp::EventDataWriter_ptr 	_eventWriter;
+	ImuNodeApp::TImuDataDataWriter_ptr 	_eventWriter;
 
 	// Data reader
 	DDS::DataReaderListener_ptr			_listener;
 	DDS::DataReader_ptr					_reader;
 
-	ExampleApp::EventDataReader_ptr		_readerI;
+	ImuNodeApp::TImuDataDataReader_ptr	_readerI;
 
 };
