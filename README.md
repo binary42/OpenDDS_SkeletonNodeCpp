@@ -35,10 +35,10 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
   
   IDL:
   
- #include "orbsvcs/TimeBase.idl"
+  #include "orbsvcs/TimeBase.idl"
 
- module ImuNodeApp
- {
+  module ImuNodeApp
+  {
 	#pragma DCPS_DATA_TYPE "ImuNodeApp::TImuData"
 	#pragma DCPS_DATA_KEY  "ImuNodeApp::TImuData name"
 
@@ -90,8 +90,8 @@ This node was designed to encapsulate the RTIMU library within a DDS framework a
 		float	humidity;
 		
 		TimeBase::TimeT timestamp;
-	};
- };
+	 };
+  };
 	 
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
