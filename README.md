@@ -1,4 +1,4 @@
-# OpenDDS_SkeletonNode Imlementation - RTIMU Demo Application Wrapper
+# OpenDDS_SkeletonNode Imlementation - RTIMU Reader Demo
 OpenDDS Application Skeleton for P2P RTPS Distributed Frameworks.
 
 This node was designed to encapsulate the RTIMU Demo Application GUI written in C++ using Qt as the user interface builder.
@@ -12,7 +12,7 @@ This node was designed to encapsulate the RTIMU Demo Application GUI written in 
 	
 ##Usage Notes
 
-   This node wraps the demo gui for the RTIMULib, semonstrating the ability to recieve IMU data from a remote 
+   This node readers remote IMU DDS messages, and deplays a subset, demonstrating the ability to recieve IMU data from a remote 
    system, communicating over DDS with the Best Effort QoS parameter.
    
   Receives IMU data over the "ImuData" topic. 
