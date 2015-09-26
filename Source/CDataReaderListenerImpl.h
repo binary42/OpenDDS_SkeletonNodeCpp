@@ -13,6 +13,8 @@
 
 #include <iostream>
 
+#include "Utility/Utils.h"
+
 // Implementation class for data reader listener stubs from OpenDDS
 class CDataReaderListenerImpl
   : public virtual OpenDDS::DCPS::LocalObject<DDS::DataReaderListener> {

@@ -63,10 +63,12 @@ void CDataReaderListenerImpl::on_data_available(DDS::DataReader_ptr reader)
                                            DDS::ANY_INSTANCE_STATE);
 
   if (error == DDS::RETCODE_OK) {
-	  // Send data to IMU app here
-
-	  // Debug output
-	  std::cout << "SampleInfo " << messages[0].name;
+	  // Read IMU data from DDS
+	  std::cout << "Data Name: " << messages[0].name;
+	  LOG( INFO ) << "Is Fusion -Euler Angle- Data Valid: " << messages[0].fusionPoseValid;
+	  LOG( INFO ) << "Fused Pose X: " << messages[0].fusionPoseX;
+	  LOG( INFO ) << "Fused Pose Y: " << messages[0].fusionPosey;
+	  LOG( INFO ) << "Fused Pose Z: " << messages[0].fusionposez;
 
   } else {
     ACE_ERROR((LM_ERROR,

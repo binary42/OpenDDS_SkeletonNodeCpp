@@ -71,22 +71,9 @@ std::string CAppNodeImpl::GetName()
  */
 void CAppNodeImpl::Run()
 {
-	// Example Messaage to write
-	ExampleApp::Event message;
 
 	while( !_psignalHandler->GotExitSignal() )
 	{
-		// Write out example message to ourselves
-		message.kicker = "test";
-		message.timestamp = nodeutils::GetUnixTimestampMs();
-
-		DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
-
-		if( ret != DDS::RETCODE_OK )
-		{
-			LOG( ERROR ) << "Error write returned: " << ret;
-		}
-
 		// Handle received messages
 		HandleWaitCondition();
 	}
@@ -196,7 +183,7 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
-	_exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
+	_exampleTypeSupport = new ImuNodeApp::TImuDataTypeSupportImpl;
 
 	// Exit if retcode ! ok
 	if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant, "" ) )
@@ -232,7 +219,7 @@ void CAppNodeImpl::InitDataWriter()
 		LOG( ERROR ) << "Create datawriter failed";
 	}
 
-	_eventWriter = ExampleApp::EventDataWriter::_narrow( _writer );
+	_eventWriter = ImuNodeApp::TImuDataDataWriter::_narrow( _writer );
 
 	if( !_eventWriter )
 	{
@@ -256,7 +243,7 @@ void CAppNodeImpl::InitDataReader()
 		LOG( ERROR ) << " Create data reader failed";
 	}
 
-	_readerI = ExampleApp::EventDataReader::_narrow( _reader );
+	_readerI = ImuNodeApp::TImuDataDataReader::_narrow( _reader );
 
 	if( !_readerI )
 	{

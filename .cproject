@@ -25,6 +25,8 @@
 								<option id="gnu.cpp.compiler.exe.debug.option.debugging.level.1928363093" name="Debug Level" superClass="gnu.cpp.compiler.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.max" valueType="enumerated"/>
 								<option id="gnu.cpp.compiler.option.include.paths.1931440570" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 									<listOptionValue builtIn="false" value="/home/borotech/Development/DDS"/>
+									<listOptionValue builtIn="false" value="../ThirdPartyLibs/RTIMU/include"/>
+									<listOptionValue builtIn="false" value="../ThirdPartyLibs/RTIMU/include/IMUDrivers"/>
 									<listOptionValue builtIn="false" value="/usr/include/qt5"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers/TAO/orbsvcs/"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers"/>
@@ -44,10 +46,12 @@
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug.593080831" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.exe.debug">
 								<option id="gnu.cpp.link.option.paths.569703295" name="Library search path (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 									<listOptionValue builtIn="false" value="/home/borotech/Development/DDS/lib"/>
+									<listOptionValue builtIn="false" value="../ThirdPartyLibs/RTIMU/lib/x64-linux"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Development/ACE_wrappers/lib"/>
 								</option>
 								<option id="gnu.cpp.link.option.libs.857223985" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="OpenDDS_Dcps"/>
+									<listOptionValue builtIn="false" value="rtimulib"/>
 									<listOptionValue builtIn="false" value="TAO_AnyTypeCode"/>
 									<listOptionValue builtIn="false" value="ACE"/>
 									<listOptionValue builtIn="false" value="TAO"/>
