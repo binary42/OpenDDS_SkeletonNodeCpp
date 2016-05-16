@@ -25,8 +25,11 @@ protected:
 
 	void virtual InitTopicinfo();
 	void virtual InitDataWriter();
+
 	void virtual InitDataReader();
 
+	// Reader overrides
+	void on_data_available(	DDS::DataReader_ptr reader);
 private:
 	// Methods
 	void HandleWaitCondition();

@@ -37,7 +37,7 @@ public:
 	virtual void HandleWaitCondition() 				= 0;
 	virtual void Run() 								= 0;
 
-	// OpenDDS Reader Inherited Impl
+	// OpenDDS Reader Inherited Impl - override in CAppNodeImpl class
 	virtual void on_requested_deadline_missed( DDS::DataReader_ptr reader, const DDS::RequestedDeadlineMissedStatus& status);
 
     virtual void on_requested_incompatible_qos(	DDS::DataReader_ptr reader,	const DDS::RequestedIncompatibleQosStatus& status);
