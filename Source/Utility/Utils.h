@@ -2,6 +2,8 @@
 
 /**
  * Node utility namepspace. (nod to spiderkeys)
+ *
+ * https://github.com/spiderkeys/SensorPublisher
  */
 
 // Logging header

@@ -9,7 +9,7 @@ CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, 
 	, m_applicationTerminate( false)
 	, _domainID( domainIDIn )
 	, _argCount( argc ), _domainParticipantFactory( nullptr), _participant( nullptr )
-	, _publisher( nullptr ), _exampleTypeSupport( nullptr ), _subscriber( nullptr)
+	, _publisher( nullptr ), _imuDataTypeSupport( nullptr ), _subscriber( nullptr)
 	, _topic( nullptr ), _writer( nullptr ), _eventWriter( nullptr ),  _listener( nullptr )
 	, _reader( nullptr), _readerI( nullptr )
 {
@@ -196,16 +196,16 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
-	_exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
+	_imuDataTypeSupport = new ExampleApp::EventTypeSupportImpl();
 
 	// Exit if retcode ! ok
-	if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant, "" ) )
+	if( DDS::RETCODE_OK != _imuDataTypeSupport->register_type( _participant, "" ) )
 	{
 		LOG( ERROR ) << "register type failed.";
 	}
 
 	// Create a topic
-	_topicTypeName = _exampleTypeSupport->get_type_name();
+	_topicTypeName = _imuDataTypeSupport->get_type_name();
 
 	_topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
 														TOPIC_QOS_DEFAULT,
