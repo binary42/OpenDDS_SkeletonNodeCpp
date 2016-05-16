@@ -1,8 +1,6 @@
 #pragma once
 
-#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
 #include "CAppNode.h"
-#include "CDataReaderListenerImpl.h"
 
 class CAppNodeImpl : CAppNode
 {

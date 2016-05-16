@@ -246,7 +246,7 @@ void CAppNodeImpl::InitDataWriter()
 void CAppNodeImpl::InitDataReader()
 {
 	// Data Reader
-	_listener = new CDataReaderListenerImpl;
+	_listener = this;// new CDataReaderListenerImpl;
 
 	_reader = _subscriber->create_datareader( _topic, DATAREADER_QOS_DEFAULT,
 												_listener,
