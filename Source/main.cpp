@@ -8,7 +8,6 @@
 #define ELOG_CONFIG_PATH "Config/log.conf"
 
 // Specify domain application belongs and name.
-#define DOMAIN_ID 0
 #define APP_NAME "ExampleApp"
 
 INITIALIZE_EASYLOGGINGPP

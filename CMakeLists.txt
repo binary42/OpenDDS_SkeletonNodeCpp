@@ -19,21 +19,39 @@ include_directories( ${CMAKE_SOURCE_DIR}/ThirdPartyLibs )
 include_directories( ${CMAKE_SOURCE_DIR}/Source )
 include_directories( ${CMAKE_SOURCE_DIR}/Source/Utility )
 
+### ACE/TAO on your system -- Modify as needed -- ###
+set( DDS_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9" )
+set( ACE_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers" )
+set( MPC_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers/MPC" )
+set( TAO_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers/TAO" )
+
+include_directories( ${DDS_ROOT} )
+include_directories( ${ACE_ROOT} )
+include_directories( ${MPC_ROOT} )
+include_directories( ${TAO_ROOT} )
+include_directories( ${TAO_ROOT}/orbsvcs )
+
+
 # Specify the directories where libraries are located.  
-#link_directories( ${CMAKE_SOURCE_DIR}/Libraries/Opencv3.1/lib  )
+link_directories( ${LD_LIBRARY_PATH} )	
 
 # Creates the executable file with the source files
 # TODO: Possibly use GLOB to specify source files
-add_executable( OpenDDS_SkeletonNodeApp Source/main.cpp 
+add_executable( OpenDDS_SkeletonNodeApp 
+					Source/main.cpp 
                     Source/CAppNode.cpp
                     Source/CAppNodeImpl.cpp
-                    Source/	Utility/CSignalException.cpp
+                    Source/Utility/CSignalException.cpp
 )
 
-message(STATUS "lib:" ${CMAKE_SOURCE_DIR})
+message(STATUS "Source DIR:" ${CMAKE_SOURCE_DIR})
 
 target_link_libraries( OpenDDS_SkeletonNodeApp 
 										pthread
+										OpenDDS_Dcps
+										TAO_AnyTypeCode
+										TAO
+										ACE
 )
 
 ### PostBuild Copy Files ###
