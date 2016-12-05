@@ -27,15 +27,17 @@ include_directories( ${CMAKE_SOURCE_DIR}/Source/Utility )
 add_executable( OpenDDS_SkeletonNodeApp Source/main.cpp 
                     Source/CAppNode.cpp
                     Source/CAppNodeImpl.cpp
-                    Utility/CSignalException.cpp
+                    Source/	Utility/CSignalException.cpp
 )
+
 message(STATUS "lib:" ${CMAKE_SOURCE_DIR})
+
 target_link_libraries( OpenDDS_SkeletonNodeApp 
 										pthread
 )
 
 ### PostBuild Copy Files ###
-file( COPY Config DESTINATION "${CMAKE_SOURCE_DIR}/build" )
+file( COPY Source/Config DESTINATION "${CMAKE_SOURCE_DIR}/build" )
 
 message(STATUS "///////////////////////////////////////////////////////////////")
 message(STATUS "/////////////// END CMAKE MESSAGES ////////////////////////////")
