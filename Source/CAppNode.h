@@ -1,5 +1,10 @@
 #pragma once
 // OpenDDS includes
+
+#include <ace/Global_Macros.h>
+#include <ace/Log_Msg.h>
+#include <ace/OS_NS_stdlib.h>
+
 #include <dds/DdsDcpsInfrastructureC.h>
 #include <dds/DdsDcpsPublicationC.h>
 

@@ -34,6 +34,8 @@ include_directories( ${TAO_ROOT}/orbsvcs )
 
 # Specify the directories where libraries are located.  
 link_directories( ${LD_LIBRARY_PATH} )	
+link_directories( ${ACE_ROOT/lib} )
+link_directories( ${DDS_ROOT/dds/lib} )
 
 # Creates the executable file with the source files
 # TODO: Possibly use GLOB to specify source files
