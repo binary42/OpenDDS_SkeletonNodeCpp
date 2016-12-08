@@ -196,7 +196,7 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
-	_imuDataTypeSupport = new ExampleApp::EventTypeSupportImpl();
+	_imuDataTypeSupport = nullptr;//new ExampleApp::EventTypeSupportImpl();
 
 	// Exit if retcode ! ok
 	if( DDS::RETCODE_OK != _imuDataTypeSupport->register_type( _participant, "" ) )

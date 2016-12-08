@@ -18,6 +18,8 @@ message(STATUS "Linker flags:   ${CMAKE_EXE_LINKER_FLAGS}")
 include_directories( ${CMAKE_SOURCE_DIR}/ThirdPartyLibs )
 include_directories( ${CMAKE_SOURCE_DIR}/Source )
 include_directories( ${CMAKE_SOURCE_DIR}/Source/Utility )
+include_directories( ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated )
+
 
 ### ACE/TAO on your system -- Modify as needed -- ###
 set( DDS_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9" )
@@ -32,13 +34,31 @@ include_directories( ${TAO_ROOT} )
 include_directories( ${TAO_ROOT}/orbsvcs )
 
 
-# Specify the directories where libraries are located.  
-link_directories( ${LD_LIBRARY_PATH} )	
-link_directories( ${ACE_ROOT/lib} )
-link_directories( ${DDS_ROOT/dds/lib} )
+# Specify the directories where libraries are located.  	
+file( GLOB OPENDDS_LIBS
+						${DDS_ROOT}/dds/libOpenDDS_Dcps.so
+						${ACE_ROOT}/lib/libTAO_AnyTypeCode.so
+						${ACE_ROOT}/lib/libTAO.so
+						${ACE_ROOT}/lib/libACE.so		
+)
+
+#file( GLOB_RECURSE ALL_DDS_LIBS ${DDS_ROOT}/*.so )
+
+#message( STATUS "ALL_DDS_LIBS: " ${ALL_DDS_LIBS} )
+
+message( STATUS "OPENDDS_LIBS: " ${OPENDDS_LIBS} )
+
+# GLOB the IDL files for lib
+file( GLOB IDL_LIB_H ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated/*.h )
+file( GLOB IDL_LIB_CPP ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated/*.cpp )
+file( GLOB IDL_LIB ${IDL_LIB_H} ${IDL_LIB_CPP} )
+
+# IDL Generated Libs - Modify as you add/subtract IDLs
+add_library( IDL_LIBS_STATIC STATIC ${IDL_LIB} )
+
+message( STATUS "IDL_LIB: " ${IDL_LIB} )
 
 # Creates the executable file with the source files
-# TODO: Possibly use GLOB to specify source files
 add_executable( OpenDDS_SkeletonNodeApp 
 					Source/main.cpp 
                     Source/CAppNode.cpp
@@ -49,11 +69,8 @@ add_executable( OpenDDS_SkeletonNodeApp
 message(STATUS "Source DIR:" ${CMAKE_SOURCE_DIR})
 
 target_link_libraries( OpenDDS_SkeletonNodeApp 
-										pthread
-										OpenDDS_Dcps
-										TAO_AnyTypeCode
-										TAO
-										ACE
+										${IDL_LIBS_STATIC}
+										${OPENDDS_LIBS}
 )
 
 ### PostBuild Copy Files ###
