@@ -38,6 +38,7 @@ include_directories( ${TAO_ROOT}/orbsvcs )
 file( GLOB OPENDDS_LIBS
 						${DDS_ROOT}/dds/libOpenDDS_Dcps.so
 						${ACE_ROOT}/lib/libTAO_AnyTypeCode.so
+						${ACE_ROOT}/lib/libTAO_PortableServer.so
 						${ACE_ROOT}/lib/libTAO.so
 						${ACE_ROOT}/lib/libACE.so		
 )
