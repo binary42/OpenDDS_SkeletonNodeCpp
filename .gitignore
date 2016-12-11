@@ -37,8 +37,8 @@ ehthumbs.db
 Thumbs.db
 
 # Eclipse stuff
-.cproject
-.project
+#.cproject
+#.project
 
 /.settings
 /build
