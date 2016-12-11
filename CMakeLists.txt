@@ -55,7 +55,7 @@ file( GLOB IDL_LIB_CPP ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated/*.cpp )
 file( GLOB IDL_LIB ${IDL_LIB_H} ${IDL_LIB_CPP} )
 
 # IDL Generated Libs - Modify as you add/subtract IDLs
-#add_library( IDL_LIBS_STATIC STATIC ${IDL_LIB} )
+add_library( IDL_LIBS_STATIC STATIC ${IDL_LIB} )
 
 message( STATUS "IDL_LIB: " ${IDL_LIB} )
 

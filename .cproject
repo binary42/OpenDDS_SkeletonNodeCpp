@@ -18,10 +18,10 @@
 					<folderInfo id="cdt.managedbuild.toolchain.gnu.base.170921942.1843902126" name="/" resourcePath="">
 						<toolChain id="cdt.managedbuild.toolchain.gnu.base.10268893" name="Linux GCC" superClass="cdt.managedbuild.toolchain.gnu.base">
 							<targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.ELF" id="cdt.managedbuild.target.gnu.platform.base.1964217983" name="Debug Platform" osList="linux,hpux,aix,qnx" superClass="cdt.managedbuild.target.gnu.platform.base"/>
-							<builder id="cdt.managedbuild.target.gnu.builder.base.933966507" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.base"/>
+							<builder buildPath="/home/borotech/Dev/repos/OpenDDS_projects/OpenDDS_SkeletonNodeCpp/build" command="make" id="cdt.managedbuild.target.gnu.builder.base.933966507" keepEnvironmentInBuildfile="false" managedBuildOn="false" name="Gnu Make Builder" superClass="cdt.managedbuild.target.gnu.builder.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.archiver.base.318310798" name="GCC Archiver" superClass="cdt.managedbuild.tool.gnu.archiver.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.base.1876129095" name="GCC C++ Compiler" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.base">
-								<option id="gnu.cpp.compiler.option.include.paths.1570334658" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+								<option id="gnu.cpp.compiler.option.include.paths.1570334658" name="Include paths (-I)" superClass="gnu.cpp.compiler.option.include.paths" useByScannerDiscovery="false" valueType="includePath">
 									<listOptionValue builtIn="false" value="/home/borotech/Dev/libs/OpenDDS-3.9"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Dev/libs/OpenDDS-3.9/dds"/>
 									<listOptionValue builtIn="false" value="/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers/"/>
@@ -34,7 +34,7 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.base.693595417" name="GCC C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.base"/>
 							<tool id="cdt.managedbuild.tool.gnu.cpp.linker.base.687457806" name="GCC C++ Linker" superClass="cdt.managedbuild.tool.gnu.cpp.linker.base">
-								<option id="gnu.cpp.link.option.libs.1974874904" superClass="gnu.cpp.link.option.libs" valueType="libs">
+								<option id="gnu.cpp.link.option.libs.1974874904" name="Libraries (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="/home/borotech/Dev/libs/OpenDDS-3.9/lib/libOpenDDS_Dcps.so"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers/TAO/tao/libTAO.so"/>
 									<listOptionValue builtIn="false" srcPrefixMapping="" srcRootPath="" value="/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers/lib/libACE.so"/>
@@ -89,5 +89,16 @@
 				</scannerInfoProvider>
 			</profile>
 		</scannerConfigBuildInfo>
+	</storageModule>
+	<storageModule moduleId="refreshScope" versionNumber="2">
+		<configuration configurationName="Default">
+			<resource resourceType="PROJECT" workspacePath="/OpenDDS_SkeletonNodeCpp"/>
+		</configuration>
+		<configuration configurationName="Debug">
+			<resource resourceType="PROJECT" workspacePath="/OpenDDS_SkeletonNode"/>
+		</configuration>
+		<configuration configurationName="Release">
+			<resource resourceType="PROJECT" workspacePath="/OpenDDS_SkeletonNode"/>
+		</configuration>
 	</storageModule>
 </cproject>
