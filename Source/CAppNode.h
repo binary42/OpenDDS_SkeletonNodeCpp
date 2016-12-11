@@ -23,7 +23,7 @@
 
 // Type support for idl
 #include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
-#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
+
 
 #include <iostream>
 
