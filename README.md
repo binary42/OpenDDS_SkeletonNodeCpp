@@ -1,6 +1,6 @@
 # OpenDDS_SkeletonNode
 
-There are 6 branches. Master contains the cmake version of the node and constitutes the main stable(ish) development of the skeleton node. Devel contains testing 
+There are 5 branches. Master contains the cmake version of the node and constitutes the main stable(ish) development of the skeleton node. Devel contains testing 
 code of the master cmake. The eclipse branch contains the eclipse project version and may not be up to date with the cmake. The imu-node and rtimu-app-node are
 IMU impls as examples. However, these two nodes are very much out of date and most likely do not work. They are also eclipse project based, not cmake.
 
