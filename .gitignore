@@ -36,17 +36,10 @@
 ehthumbs.db
 Thumbs.db
 
+# Eclipse stuff
+.cproject
+.project
 
-/Debug/
-/Debug/
-/Debug/
-/Debug/
-/Debug/
-/Debug/
-/Debug/
-/Debug/
-/Debug/
-/Debug/
-/Debug/
-/Debug/
+/.settings
+/build
 /Debug/

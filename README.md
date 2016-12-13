@@ -7,6 +7,8 @@ IMU impls as examples. However, these two nodes are very much out of date and mo
 All of this is still in development so take nothing for granted and assume the node needs much work and improvement. Use at your own risk, as I am not r
 liable for any use...as a matter of fact, just forget about this repo. best of luck.
 
+Modeled from spiderkeys RTI impl. https://github.com/spiderkeys/SensorPublisher
+
 OpenDDS Application Skeleton for P2P RTPS Distributed Frameworks. MIT License
 
 This node was designed to encapsulate the OCI OpenDDS package, enabling researchers and system architects with a peer to peer nodal 
@@ -22,11 +24,34 @@ development path.
 
 ##Hard Requirements:
 
+   TAO ( The Ace ORB ) is required:
+
+		From OpenDDS Install README:
+
+		OpenDDS requires TAO for both IDL compilation as well as interaction
+		with the DCPSInfoRepo.  If you will be using the "configure" script for OpenDDS
+		(see the INSTALL file for details), you do not need to download TAO first --
+		the "configure" script will download it for you.
+		
+		At a minimum, you must be at one of the following versions in order to properly
+		compile OpenDDS:
+		
+		*** TAO 2.0a patch 7
+		*** TAO 2.2a patch 8
+		*** TAO 2.3.3 (DOC Group)
+		
+		Note that the 2.0a and 2.2a releases are from OCI and can be obtained
+		from http://www.theaceorb.com/.  The DOC Group releases can be obtained from
+		http://download.dre.vanderbilt.edu/.
+		
+		OpenDDS Safety Profile requires OCI TAO 2.2a patch 8 or
+		DOC Group TAO from GitHub master (after 2.3.3 release).
+
    OCI OpenDDS install for platform of your choice: [OCI OpenDDS](http://www.ociweb.com/products/opendds/)
 		
-      OpenDDS OS Support: http://www.opendds.org/downloads.html 
+      	OpenDDS OS Support: http://www.opendds.org/downloads.html 
       
-      Or on github: https://github.com/objectcomputing/OpenDDS
+      	Or on github: https://github.com/objectcomputing/OpenDDS
 	
 ##Soft Requirements:
 
@@ -38,7 +63,7 @@ development path.
 
 ##Code Modifications for Node personalization:
 
-  The code should be farely easy to read. Modification areas are highlights in CAppNodeImpl and CDataReaderListenerImpl. You should not
+  The code should be easy to read. Modification areas are highlights in CAppNodeImpl and CDataReaderListenerImpl. You should not
   need to modify the base classes nor the main.cpp. 
   
   The CDataReaderListenerImpl contains all message logic for stubbed conditions. The class allows you to use the DCPS architecture to

@@ -1,8 +1,6 @@
 #pragma once
 
-#include "../OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.h"
 #include "CAppNode.h"
-#include "CDataReaderListenerImpl.h"
 
 class CAppNodeImpl : CAppNode
 {
@@ -27,8 +25,11 @@ protected:
 
 	void virtual InitTopicinfo();
 	void virtual InitDataWriter();
+
 	void virtual InitDataReader();
 
+	// Reader overrides
+	void on_data_available(	DDS::DataReader_ptr reader);
 private:
 	// Methods
 	void HandleWaitCondition();
@@ -44,7 +45,7 @@ private:
 
 	// Publisher
 	DDS::Publisher_ptr 					_publisher;
-	ExampleApp::EventTypeSupport_ptr 	_exampleTypeSupport;
+	ExampleApp::EventTypeSupport_ptr 	_imuDataTypeSupport;
 
 	// Subscriber
 	DDS::Subscriber_ptr					_subscriber;

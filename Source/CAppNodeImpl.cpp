@@ -9,7 +9,7 @@ CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, 
 	, m_applicationTerminate( false)
 	, _domainID( domainIDIn )
 	, _argCount( argc ), _domainParticipantFactory( nullptr), _participant( nullptr )
-	, _publisher( nullptr ), _exampleTypeSupport( nullptr ), _subscriber( nullptr)
+	, _publisher( nullptr ), _imuDataTypeSupport( nullptr ), _subscriber( nullptr)
 	, _topic( nullptr ), _writer( nullptr ), _eventWriter( nullptr ),  _listener( nullptr )
 	, _reader( nullptr), _readerI( nullptr )
 {
@@ -196,16 +196,16 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
-	_exampleTypeSupport = new ExampleApp::EventTypeSupportImpl();
+	_imuDataTypeSupport = new ExampleApp::EventTypeSupportImpl();
 
 	// Exit if retcode ! ok
-	if( DDS::RETCODE_OK != _exampleTypeSupport->register_type( _participant, "" ) )
+	if( DDS::RETCODE_OK != _imuDataTypeSupport->register_type( _participant, "" ) )
 	{
 		LOG( ERROR ) << "register type failed.";
 	}
 
 	// Create a topic
-	_topicTypeName = _exampleTypeSupport->get_type_name();
+	_topicTypeName = _imuDataTypeSupport->get_type_name();
 
 	_topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
 														TOPIC_QOS_DEFAULT,
@@ -246,7 +246,7 @@ void CAppNodeImpl::InitDataWriter()
 void CAppNodeImpl::InitDataReader()
 {
 	// Data Reader
-	_listener = new CDataReaderListenerImpl;
+	_listener = this;// new CDataReaderListenerImpl;
 
 	_reader = _subscriber->create_datareader( _topic, DATAREADER_QOS_DEFAULT,
 												_listener,
@@ -263,4 +263,44 @@ void CAppNodeImpl::InitDataReader()
 
 		LOG( ERROR ) << " _narrow failed";
 	}
+}
+
+// Reader overrides
+void CAppNodeImpl::on_data_available(DDS::DataReader_ptr reader)
+{
+  ExampleApp::EventDataReader_var reader_i =
+		  ExampleApp::EventDataReader::_narrow(reader);
+
+  if (CORBA::is_nil(reader_i.in())) {
+    ACE_ERROR((LM_ERROR,
+               ACE_TEXT("ERROR: %N:%l: on_data_available() -")
+               ACE_TEXT(" _narrow failed!\n")));
+    ACE_OS::exit(-1);
+  }
+
+  ExampleApp::EventSeq messages;
+  DDS::SampleInfoSeq info;
+
+  DDS::ReturnCode_t error = reader_i->take(messages,
+                                           info,
+                                           DDS::LENGTH_UNLIMITED,
+                                           DDS::ANY_SAMPLE_STATE,
+                                           DDS::ANY_VIEW_STATE,
+                                           DDS::ANY_INSTANCE_STATE);
+
+  if (error == DDS::RETCODE_OK) {
+    std::cout << "SampleInfo.sample_rank = " << info[0].sample_rank << std::endl;
+    std::cout << "SampleInfo.instance_state = " << info[0].instance_state << std::endl;
+
+    if (info[0].valid_data) {
+    	std::cout << "SampleInfo " << messages[0].kicker;
+    }
+
+  } else {
+    ACE_ERROR((LM_ERROR,
+               ACE_TEXT("ERROR: %N:%l: on_data_available() -")
+               ACE_TEXT(" take failed!\n")));
+  }
+
+  reader_i->return_loan(messages, info);
 }

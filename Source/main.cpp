@@ -28,7 +28,12 @@ void InitializeLogger( CAppNodeImpl *applicationIn )
 
 int main( int argc, ACE_TCHAR *argv[] )
 {
-	std::unique_ptr<CAppNodeImpl> application( new CAppNodeImpl( argc, argv, APP_NAME, DOMAIN_ID ) );
+	CAppNodeImpl test( argc, argv, APP_NAME, DOMAIN_ID );
+
+	//std::unique_ptr<CAppNodeImpl> application( new CAppNodeImpl( argc, argv, APP_NAME, DOMAIN_ID ) );
+//CAppNodeImpl application( argc, argv, APP_NAME,DOMAIN_ID);
+
+	std::unique_ptr<CAppNodeImpl> application(&test);
 
 	try
 	{
