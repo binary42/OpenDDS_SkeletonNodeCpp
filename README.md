@@ -1,6 +1,11 @@
 # OpenDDS_SkeletonNode
 
-Modeled from spiderkeys RTI impl. https://github.com/spiderkeys/SensorPublisher
+There are 6 branches. Master contains the cmake version of the node and constitutes the main stable(ish) development of the skeleton node. Devel contains testing 
+code of the master cmake. The eclipse branch contains the eclipse project version and may not be up to date with the cmake. The imu-node and rtimu-app-node are
+IMU impls as examples. However, these two nodes are very much out of date and most likely do not work. They are also eclipse project based, not cmake.
+
+All of this is still in development so take nothing for granted and assume the node needs much work and improvement. Use at your own risk, as I am not r
+liable for any use...as a matter of fact, just forget about this repo. best of luck.
 
 OpenDDS Application Skeleton for P2P RTPS Distributed Frameworks. MIT License
 
@@ -41,7 +46,7 @@ development path.
 
 #Running the Node:
 
-    ./OpenDDS_SkeletonNodeCpp -DCPSConfigFile Config/rtps.ini
+    ./OpenDDS_SkeletonNodeApp -DCPSConfigFile Config/rtps.ini
 
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
