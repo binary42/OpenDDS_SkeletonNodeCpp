@@ -28,7 +28,9 @@ set( MPC_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers/MPC" )
 set( TAO_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers/TAO" )
 
 include_directories( ${DDS_ROOT} )
+include_directories( ${DDS_ROOT}/dds )
 include_directories( ${ACE_ROOT} )
+include_directories( ${ACE_ROOT}/ace )
 include_directories( ${MPC_ROOT} )
 include_directories( ${TAO_ROOT} )
 include_directories( ${TAO_ROOT}/orbsvcs )
@@ -38,29 +40,22 @@ include_directories( ${TAO_ROOT}/orbsvcs )
 file( GLOB OPENDDS_LIBS
 						${DDS_ROOT}/dds/libOpenDDS_Dcps.so
 						${ACE_ROOT}/lib/libTAO_AnyTypeCode.so
-						${ACE_ROOT}/lib/libTAO_PortableServer.so
 						${ACE_ROOT}/lib/libTAO.so
-						${ACE_ROOT}/lib/libACE.so		
+						${ACE_ROOT}/lib/libACE.so
 )
-
-#file( GLOB_RECURSE ALL_DDS_LIBS ${DDS_ROOT}/*.so )
-
-#message( STATUS "ALL_DDS_LIBS: " ${ALL_DDS_LIBS} )
 
 message( STATUS "OPENDDS_LIBS: " ${OPENDDS_LIBS} )
 
-# GLOB the IDL files for lib
-file( GLOB IDL_LIB_H ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated/*.h )
-file( GLOB IDL_LIB_CPP ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated/*.cpp )
-file( GLOB IDL_LIB ${IDL_LIB_H} ${IDL_LIB_CPP} )
-
-# IDL Generated Libs - Modify as you add/subtract IDLs
-add_library( IDL_LIBS_STATIC STATIC ${IDL_LIB} )
-
-message( STATUS "IDL_LIB: " ${IDL_LIB} )
-
 # Creates the executable file with the source files
 add_executable( OpenDDS_SkeletonNodeApp 
+					# IDL - TODO use glob
+					OpenDDS/Source/Cpp/Generated/ExampleC.cpp
+					OpenDDS/Source/Cpp/Generated/ExampleS.cpp
+					OpenDDS/Source/Cpp/Generated/ExampleTypeSupportC.cpp
+					OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.cpp
+					OpenDDS/Source/Cpp/Generated/ExampleTypeSupportS.cpp
+					
+					# Node Specific
 					Source/main.cpp 
                     Source/CAppNode.cpp
                     Source/CAppNodeImpl.cpp
@@ -70,8 +65,7 @@ add_executable( OpenDDS_SkeletonNodeApp
 message(STATUS "Source DIR:" ${CMAKE_SOURCE_DIR})
 
 target_link_libraries( OpenDDS_SkeletonNodeApp 
-#										${IDL_LIBS_STATIC}
-										${OPENDDS_LIBS}
+									${OPENDDS_LIBS}
 )
 
 ### PostBuild Copy Files ###

@@ -196,7 +196,7 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
-	_imuDataTypeSupport = nullptr;//new ExampleApp::EventTypeSupportImpl();
+	_imuDataTypeSupport = new ExampleApp::EventTypeSupportImpl();
 
 	// Exit if retcode ! ok
 	if( DDS::RETCODE_OK != _imuDataTypeSupport->register_type( _participant, "" ) )
@@ -289,18 +289,12 @@ void CAppNodeImpl::on_data_available(DDS::DataReader_ptr reader)
                                            DDS::ANY_INSTANCE_STATE);
 
   if (error == DDS::RETCODE_OK) {
-//    std::cout << "SampleInfo.sample_rank = " << info[0].sample_rank << std::endl;
-//    std::cout << "SampleInfo.instance_state = " << info[0].instance_state << std::endl;
-//
-//    if (info[0].valid_data) {
-//      std::cout << "Message: subject    = " << messages[0].subject.in() << std::endl
-//                << "         subject_id = " << messages[0].subject_id   << std::endl
-//                << "         from       = " << messages[0].from.in()    << std::endl
-//                << "         count      = " << messages[0].count        << std::endl
-//                << "         text       = " << messages[0].text.in()    << std::endl;
+    std::cout << "SampleInfo.sample_rank = " << info[0].sample_rank << std::endl;
+    std::cout << "SampleInfo.instance_state = " << info[0].instance_state << std::endl;
 
-//    }
-	  std::cout << "SampleInfo " << messages[0].kicker;
+    if (info[0].valid_data) {
+    	std::cout << "SampleInfo " << messages[0].kicker;
+    }
 
   } else {
     ACE_ERROR((LM_ERROR,
