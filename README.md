@@ -64,7 +64,7 @@ development path.
 
 #Running the Node:
 
-    ./OpenDDS_SkeletonNodeCpp -DCPSConfigFile Config/rtps.ini
+    ./OpenDDS_SkeletonNodeApp -DCPSConfigFile Config/rtps.ini
 
 # STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
 
