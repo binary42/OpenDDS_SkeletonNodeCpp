@@ -9,7 +9,7 @@ CAppNodeImpl::CAppNodeImpl( int argc, ACE_TCHAR *argv[], std::string appNameIn, 
 	, m_applicationTerminate( false)
 	, _domainID( domainIDIn )
 	, _argCount( argc ), _domainParticipantFactory( nullptr), _participant( nullptr )
-	, _publisher( nullptr ), _imuDataTypeSupport( nullptr ), _subscriber( nullptr)
+	, _publisher( nullptr ), _rovDepthTypeSupport( nullptr ), _subscriber( nullptr)
 	, _topic( nullptr ), _writer( nullptr ), _eventWriter( nullptr ),  _listener( nullptr )
 	, _reader( nullptr), _readerI( nullptr )
 {
@@ -58,7 +58,7 @@ void CAppNodeImpl::Initialize()
 }
 
 /**
- * Retruns the name of the application.
+ * Returns the name of the application.
  * @return		_appname		string type
  */
 std::string CAppNodeImpl::GetName()
@@ -72,19 +72,20 @@ std::string CAppNodeImpl::GetName()
 void CAppNodeImpl::Run()
 {
 	// Example Messaage to write
-	ExampleApp::Event message;
+	 orov::Depth message;
 
 	while( !_psignalHandler->GotExitSignal() )
 	{
 		// Write out example message to ourselves
-		message.kicker = "test";
-		message.timestamp = nodeutils::GetUnixTimestampMs();
+		 message.id = "test";
+		 message.depths = nodeutils::GetUnixTimestampMs();
+		 DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
 
-		DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
+		// Listening for messages we've subscribed. This is handled by the on_data_available method
 
 		if( ret != DDS::RETCODE_OK )
 		{
-			LOG( ERROR ) << "Error write returned: " << ret;
+			LOG( ERROR ) << "Error write returned: ";// << ret;
 		}
 
 		// Handle received messages
@@ -165,7 +166,7 @@ void CAppNodeImpl::InitParticipant()
 
 /**
  * Initializes the data pubisler and subscriber  DDS entities. Consider Qos
- * for design changes. Comment out or remove what is not need. You can also create the subs and pubs
+ * for design changes. Comment out or remove what is not needed. You can also create the subs and pubs
  * and not use them.
  */
 void CAppNodeImpl::InitPublisherAndSubscriber()
@@ -196,16 +197,16 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 void CAppNodeImpl::InitTopicinfo()
 {
 	// Type registration
-	_imuDataTypeSupport = new ExampleApp::EventTypeSupportImpl();
+	_rovDepthTypeSupport = new orov::DepthTypeSupportImpl();
 
 	// Exit if retcode ! ok
-	if( DDS::RETCODE_OK != _imuDataTypeSupport->register_type( _participant, "" ) )
+	if( DDS::RETCODE_OK != _rovDepthTypeSupport->register_type( _participant, "" ) )
 	{
 		LOG( ERROR ) << "register type failed.";
 	}
 
 	// Create a topic
-	_topicTypeName = _imuDataTypeSupport->get_type_name();
+	_topicTypeName = _rovDepthTypeSupport->get_type_name();
 
 	_topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
 														TOPIC_QOS_DEFAULT,
@@ -232,7 +233,7 @@ void CAppNodeImpl::InitDataWriter()
 		LOG( ERROR ) << "Create datawriter failed";
 	}
 
-	_eventWriter = ExampleApp::EventDataWriter::_narrow( _writer );
+	_eventWriter = orov::DepthDataWriter::_narrow( _writer );
 
 	if( !_eventWriter )
 	{
@@ -256,7 +257,7 @@ void CAppNodeImpl::InitDataReader()
 		LOG( ERROR ) << " Create data reader failed";
 	}
 
-	_readerI = ExampleApp::EventDataReader::_narrow( _reader );
+	_readerI = orov::DepthDataReader::_narrow( _reader );
 
 	if( !_readerI )
 	{
@@ -268,8 +269,8 @@ void CAppNodeImpl::InitDataReader()
 // Reader overrides
 void CAppNodeImpl::on_data_available(DDS::DataReader_ptr reader)
 {
-  ExampleApp::EventDataReader_var reader_i =
-		  ExampleApp::EventDataReader::_narrow(reader);
+  orov::DepthDataReader_var reader_i =
+		  orov::DepthDataReader::_narrow(reader);
 
   if (CORBA::is_nil(reader_i.in())) {
     ACE_ERROR((LM_ERROR,
@@ -278,7 +279,7 @@ void CAppNodeImpl::on_data_available(DDS::DataReader_ptr reader)
     ACE_OS::exit(-1);
   }
 
-  ExampleApp::EventSeq messages;
+  orov::DepthSeq messages;
   DDS::SampleInfoSeq info;
 
   DDS::ReturnCode_t error = reader_i->take(messages,

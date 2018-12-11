@@ -22,10 +22,10 @@ include_directories( ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated )
 
 
 ### ACE/TAO on your system -- Modify as needed -- ###
-set( DDS_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9" )
-set( ACE_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers" )
-set( MPC_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers/MPC" )
-set( TAO_ROOT "/home/borotech/Dev/libs/OpenDDS-3.9/ACE_wrappers/TAO" )
+set( DDS_ROOT "/home/binary9/dev/OpenDDS-3.13" )
+set( ACE_ROOT "/home/binary9/dev/OpenDDS-3.13/ACE_wrappers" )
+set( MPC_ROOT "/home/binary9/dev/OpenDDS-3.13/ACE_wrappers/MPC" )
+set( TAO_ROOT "/home/binary9/dev/OpenDDS-3.13/ACE_wrappers/TAO" )
 
 include_directories( ${DDS_ROOT} )
 include_directories( ${DDS_ROOT}/dds )
@@ -46,20 +46,18 @@ file( GLOB OPENDDS_LIBS
 
 message( STATUS "OPENDDS_LIBS: " ${OPENDDS_LIBS} )
 
+# Grab the generated idl related files
+file( GLOB IDL_CPP_FILES ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated/*.cpp )
 # Creates the executable file with the source files
 add_executable( OpenDDS_SkeletonNodeApp 
 					# IDL - TODO use glob
-					OpenDDS/Source/Cpp/Generated/ExampleC.cpp
-					OpenDDS/Source/Cpp/Generated/ExampleS.cpp
-					OpenDDS/Source/Cpp/Generated/ExampleTypeSupportC.cpp
-					OpenDDS/Source/Cpp/Generated/ExampleTypeSupportImpl.cpp
-					OpenDDS/Source/Cpp/Generated/ExampleTypeSupportS.cpp
+					${IDL_CPP_FILES}
 					
 					# Node Specific
-					Source/main.cpp 
-                    Source/CAppNode.cpp
-                    Source/CAppNodeImpl.cpp
-                    Source/Utility/CSignalException.cpp
+					${CMAKE_SOURCE_DIR}/Source/main.cpp 
+                    ${CMAKE_SOURCE_DIR}/Source/CAppNode.cpp
+                    ${CMAKE_SOURCE_DIR}/Source/CAppNodeImpl.cpp
+                    ${CMAKE_SOURCE_DIR}/Source/Utility/CSignalException.cpp
 )
 
 message(STATUS "Source DIR:" ${CMAKE_SOURCE_DIR})

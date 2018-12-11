@@ -30,6 +30,7 @@ protected:
 
 	// Reader overrides
 	void on_data_available(	DDS::DataReader_ptr reader);
+
 private:
 	// Methods
 	void HandleWaitCondition();
@@ -45,7 +46,7 @@ private:
 
 	// Publisher
 	DDS::Publisher_ptr 					_publisher;
-	ExampleApp::EventTypeSupport_ptr 	_imuDataTypeSupport;
+	orov::DepthTypeSupport_ptr 			_rovDepthTypeSupport;
 
 	// Subscriber
 	DDS::Subscriber_ptr					_subscriber;
@@ -62,6 +63,6 @@ private:
 	DDS::DataReaderListener_ptr			_listener;
 	DDS::DataReader_ptr					_reader;
 
-	ExampleApp::EventDataReader_ptr		_readerI;
+	orov::DepthDataReader_ptr			_readerI;
 
 };
