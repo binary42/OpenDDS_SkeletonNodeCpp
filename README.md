@@ -1,79 +1,39 @@
 # OpenDDS_SkeletonNode
 
-There are 5 branches. Master contains the cmake version of the node and constitutes the main stable(ish) development of the skeleton node. Devel contains testing 
-code of the master cmake. The eclipse branch contains the eclipse project version and may not be up to date with the cmake. The imu-node and rtimu-app-node are
-IMU impls as examples. However, these two nodes are very much out of date and most likely do not work. They are also eclipse project based, not cmake.
+This is a C++ application node encapsulating OCI's OpenDDS DDS libraries.
 
-All of this is still in development so take nothing for granted and assume the node needs much work and improvement. Use at your own risk, as I am not r
-liable for any use...as a matter of fact, just forget about this repo. best of luck.
+There are 6 branches. Master contains the cmake version of the node and constitutes the main stable(ish) development of the skeleton node.
+ 
+Devel contains testing code of the master cmake. The eclipse branch contains the eclipse project version and may not be up to date with the cmake. 
+
+The imu-node and rtimu-app-node are IMU impls as examples. However, these two nodes are very much out of date and most likely do not work. They are also eclipse project based, not cmake.
+
+All of this is still in development so take nothing for granted and assume the node needs much work and improvement. Use at your own risk, as I am not liable for any use...as a matter of fact, just forget about this repo. Best of luck.
+
+## Notes on branch master:
+Currently, this is an example node, highlighting how to create a listener for depth data coming from the OpenROV Trident ROV, that implements RTI Connext DDS. This was created to give enthusiasts the ability to interface with the Trident using DDS without needing an expensive license.
 
 Modeled from spiderkeys RTI impl. https://github.com/spiderkeys/SensorPublisher
 
-OpenDDS Application Skeleton for P2P RTPS Distributed Frameworks. MIT License
+OpenDDS Application Skeleton for P2P (Peer-2-Peer) RTPS (Real Time Publish Subscribe) Distributed Frameworks. MIT License
 
-This node was designed to encapsulate the OCI OpenDDS package, enabling researchers and system architects with a peer to peer nodal 
-approach to distributed realt-time capable framework.
+Developed and tested in Ubuntu 16.04. OpenDDS 3.13.
 
-Developed and tested in Ubuntu 14.04. One day I may get back into windows. Please make a branch if you would like to persue the WinOS
-development path.
-
-   NOTE: I am learning this as I go along. Please consult the OpenDDS manual for further information on utilizing DDS and 
-   QoS to best develop your applications: http://www.opendds.org/documentation.html
+I am learning this as I go along. Please consult the OpenDDS manual for further information on utilizing DDS and QoS to best develop your applications: http://www.opendds.org/documentation.html
    
-   Also, if you clone this repo, use the --recursive flag, otherwise you will not pull down required submodules.
+When cloning this repository, use the --recursive flag, otherwise you will not pull down required submodules. The OpenDDS submodule contains the IDL and command scripts for generating your C++ code for given IDLs.
 
-##Hard Requirements:
+## Code Modifications for Node personalization:
 
-   TAO ( The Ace ORB ) is required:
-
-		From OpenDDS Install README:
-
-		OpenDDS requires TAO for both IDL compilation as well as interaction
-		with the DCPSInfoRepo.  If you will be using the "configure" script for OpenDDS
-		(see the INSTALL file for details), you do not need to download TAO first --
-		the "configure" script will download it for you.
-		
-		At a minimum, you must be at one of the following versions in order to properly
-		compile OpenDDS:
-		
-		*** TAO 2.0a patch 7
-		*** TAO 2.2a patch 8
-		*** TAO 2.3.3 (DOC Group)
-		
-		Note that the 2.0a and 2.2a releases are from OCI and can be obtained
-		from http://www.theaceorb.com/.  The DOC Group releases can be obtained from
-		http://download.dre.vanderbilt.edu/.
-		
-		OpenDDS Safety Profile requires OCI TAO 2.2a patch 8 or
-		DOC Group TAO from GitHub master (after 2.3.3 release).
-
-   OCI OpenDDS install for platform of your choice: [OCI OpenDDS](http://www.ociweb.com/products/opendds/)
-		
-      	OpenDDS OS Support: http://www.opendds.org/downloads.html 
-      
-      	Or on github: https://github.com/objectcomputing/OpenDDS
-	
-##Soft Requirements:
-
-   Programming, OS:
-      
-      https://eclipse.org/ "Eclipse ( used for this project )"
-      http://www.ubuntu.com/ "Linux"
-      arm-linux: Pick your flavor and platform. Many to choose from
-
-##Code Modifications for Node personalization:
-
-  The code should be easy to read. Modification areas are highlights in CAppNodeImpl and CDataReaderListenerImpl. You should not
-  need to modify the base classes nor the main.cpp. 
+The code should be easy to read. Modification areas are highlights in CAppNodeImpl and CDataReaderListenerImpl. You should not need to modify the base classes nor the main.cpp. 
   
-  The CDataReaderListenerImpl contains all message logic for stubbed conditions. The class allows you to use the DCPS architecture to
-  it's fullest.
+The CDataReaderListenerImpl is now part of the CAppNode class. The virtual methods contain all message logic for stubbed conditions. The class allows you to use the DCPS architecture to it's fullest.
 
-#Running the Node:
+# Running the Node:
 
     ./OpenDDS_SkeletonNodeApp -DCPSConfigFile Config/rtps.ini
 
-# STILL UNDER CONSTRUCTION >>> USE AT YOUR OWN RISK
+# Continually under construction >>> USE AT YOUR OWN RISK
 
 Much improvement is needed. Namespaces, utilities, cmake files, etc needed. Plus, better implementation
 after a bit more research and testing.

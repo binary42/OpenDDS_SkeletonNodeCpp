@@ -57,7 +57,7 @@ private:
 
 	// Data writer
 	DDS::DataWriter_ptr					_writer;
-	ExampleApp::EventDataWriter_ptr 	_eventWriter;
+	orov::DepthDataWriter_ptr 	_eventWriter;
 
 	// Data reader
 	DDS::DataReaderListener_ptr			_listener;

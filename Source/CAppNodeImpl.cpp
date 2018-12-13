@@ -294,7 +294,7 @@ void CAppNodeImpl::on_data_available(DDS::DataReader_ptr reader)
     std::cout << "SampleInfo.instance_state = " << info[0].instance_state << std::endl;
 
     if (info[0].valid_data) {
-    	std::cout << "SampleInfo " << messages[0].kicker;
+    	std::cout << "SampleInfo " << messages[0].depths;
     }
 
   } else {

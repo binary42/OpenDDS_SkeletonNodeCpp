@@ -38,16 +38,18 @@ include_directories( ${TAO_ROOT}/orbsvcs )
 
 # Specify the directories where libraries are located.  	
 file( GLOB OPENDDS_LIBS
-						${DDS_ROOT}/dds/libOpenDDS_Dcps.so
-						${ACE_ROOT}/lib/libTAO_AnyTypeCode.so
-						${ACE_ROOT}/lib/libTAO.so
-						${ACE_ROOT}/lib/libACE.so
+						${DDS_ROOT}/dds/*.so
+						${ACE_ROOT}/lib/*.so
+						#${ACE_ROOT}/lib/libTAO_AnyTypeCode.so
+						#${ACE_ROOT}/lib/libTAO.so
+						#$ACE_ROOT}/lib/libACE.so
 )
 
 message( STATUS "OPENDDS_LIBS: " ${OPENDDS_LIBS} )
 
 # Grab the generated idl related files
 file( GLOB IDL_CPP_FILES ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated/*.cpp )
+
 # Creates the executable file with the source files
 add_executable( OpenDDS_SkeletonNodeApp 
 					# IDL - TODO use glob
