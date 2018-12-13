@@ -29,11 +29,11 @@ The code should be easy to read. Modification areas are highlights in CAppNodeIm
   
 The CDataReaderListenerImpl is now part of the CAppNode class. The virtual methods contain all message logic for stubbed conditions. The class allows you to use the DCPS architecture to it's fullest.
 
-# Running the Node:
+## Running the Node:
 
     ./OpenDDS_SkeletonNodeApp -DCPSConfigFile Config/rtps.ini
 
-# Continually under construction >>> USE AT YOUR OWN RISK
+## Continually under construction >>> USE AT YOUR OWN RISK
 
 Much improvement is needed. Namespaces, utilities, cmake files, etc needed. Plus, better implementation
 after a bit more research and testing.
