@@ -20,12 +20,13 @@ include_directories( ${CMAKE_SOURCE_DIR}/Source )
 include_directories( ${CMAKE_SOURCE_DIR}/Source/Utility )
 include_directories( ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated )
 
-
 ### ACE/TAO on your system -- Modify as needed -- ###
-set( DDS_ROOT "/home/binary9/dev/OpenDDS-3.13" )
-set( ACE_ROOT "/home/binary9/dev/OpenDDS-3.13/ACE_wrappers" )
-set( MPC_ROOT "/home/binary9/dev/OpenDDS-3.13/ACE_wrappers/MPC" )
-set( TAO_ROOT "/home/binary9/dev/OpenDDS-3.13/ACE_wrappers/TAO" )
+set( HOME "/home/binary9" )
+
+set( DDS_ROOT "${HOME}/dev/OpenDDS-3.12" )
+set( ACE_ROOT "${HOME}/dev/OpenDDS-3.12/ACE_wrappers" )
+set( MPC_ROOT "${HOME}/dev/OpenDDS-3.12/ACE_wrappers/MPC" )
+set( TAO_ROOT "${HOME}/dev/OpenDDS-3.12/ACE_wrappers/TAO" )
 
 include_directories( ${DDS_ROOT} )
 include_directories( ${DDS_ROOT}/dds )
@@ -40,9 +41,7 @@ include_directories( ${TAO_ROOT}/orbsvcs )
 file( GLOB OPENDDS_LIBS
 						${DDS_ROOT}/dds/*.so
 						${ACE_ROOT}/lib/*.so
-						#${ACE_ROOT}/lib/libTAO_AnyTypeCode.so
-						#${ACE_ROOT}/lib/libTAO.so
-						#$ACE_ROOT}/lib/libACE.so
+						${DDS_ROOT}/lib/*.so
 )
 
 message( STATUS "OPENDDS_LIBS: " ${OPENDDS_LIBS} )
@@ -50,22 +49,30 @@ message( STATUS "OPENDDS_LIBS: " ${OPENDDS_LIBS} )
 # Grab the generated idl related files
 file( GLOB IDL_CPP_FILES ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated/*.cpp )
 
+# Grab the main cpp files
+file( GLOB SOURCE_CPP_FILES ${CMAKE_SOURCE_DIR}/Source/*.cpp )
+
+# Grab utils
+file( GLOB UTILS_CPP_FILES ${CMAKE_SOURCE_DIR}/Source/Utility/*.cpp )
+
 # Creates the executable file with the source files
 add_executable( OpenDDS_SkeletonNodeApp 
-					# IDL - TODO use glob
+					# IDL CPPs
 					${IDL_CPP_FILES}
 					
-					# Node Specific
-					${CMAKE_SOURCE_DIR}/Source/main.cpp 
-                    ${CMAKE_SOURCE_DIR}/Source/CAppNode.cpp
-                    ${CMAKE_SOURCE_DIR}/Source/CAppNodeImpl.cpp
-                    ${CMAKE_SOURCE_DIR}/Source/Utility/CSignalException.cpp
+					# Node Specific CPPs
+					${SOURCE_CPP_FILES}
+					${UTILS_CPP_FILES}
 )
 
 message(STATUS "Source DIR:" ${CMAKE_SOURCE_DIR})
 
 target_link_libraries( OpenDDS_SkeletonNodeApp 
 									${OPENDDS_LIBS}
+									${DDS_ROOT}/dds/libOpenDDS_Dcps.so
+									${ACE_ROOT}/lib/libTAO_AnyTypeCode.so
+									${ACE_ROOT}/lib/libTAO.so
+									${ACE_ROOT}/lib/libACE.so
 )
 
 ### PostBuild Copy Files ###
