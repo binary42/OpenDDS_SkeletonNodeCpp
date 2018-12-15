@@ -71,23 +71,8 @@ std::string CAppNodeImpl::GetName()
  */
 void CAppNodeImpl::Run()
 {
-	// Example Messaage to write
-//	 orov::Depth message;
-
 	while( !_psignalHandler->GotExitSignal() )
 	{
-		// Write out example message to ourselves
-//		 message.id = "test";
-//		 message.depths = nodeutils::GetUnixTimestampMs();
-//		 DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
-
-		// Listening for messages we've subscribed. This is handled by the on_data_available method
-
-//		if( ret != DDS::RETCODE_OK )
-//		{
-//			LOG( ERROR ) << "Error write returned: ";// << ret;
-//		}
-
 		// Handle received messages
 		HandleWaitCondition();
 	}

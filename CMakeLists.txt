@@ -21,12 +21,10 @@ include_directories( ${CMAKE_SOURCE_DIR}/Source/Utility )
 include_directories( ${CMAKE_SOURCE_DIR}/OpenDDS/Source/Cpp/Generated )
 
 ### ACE/TAO on your system -- Modify as needed -- ###
-set( HOME "/home/binary9" )
-
-set( DDS_ROOT "${HOME}/dev/OpenDDS-3.12" )
-set( ACE_ROOT "${HOME}/dev/OpenDDS-3.12/ACE_wrappers" )
-set( MPC_ROOT "${HOME}/dev/OpenDDS-3.12/ACE_wrappers/MPC" )
-set( TAO_ROOT "${HOME}/dev/OpenDDS-3.12/ACE_wrappers/TAO" )
+set( DDS_ROOT "$ENV{HOME}/dev/OpenDDS-3.12" )
+set( ACE_ROOT "$ENV{HOME}/dev/OpenDDS-3.12/ACE_wrappers" )
+set( MPC_ROOT "$ENV{HOME}/dev/OpenDDS-3.12/ACE_wrappers/MPC" )
+set( TAO_ROOT "$ENV{HOME}/dev/OpenDDS-3.12/ACE_wrappers/TAO" )
 
 include_directories( ${DDS_ROOT} )
 include_directories( ${DDS_ROOT}/dds )
