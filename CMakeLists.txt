@@ -41,7 +41,7 @@ include_directories( ${TAO_ROOT}/orbsvcs )
 file( GLOB OPENDDS_LIBS
 						${DDS_ROOT}/dds/*.so
 						${ACE_ROOT}/lib/*.so
-						${DDS_ROOT}/lib/*.so
+						#${DDS_ROOT}/lib/*.so
 )
 
 message( STATUS "OPENDDS_LIBS: " ${OPENDDS_LIBS} )

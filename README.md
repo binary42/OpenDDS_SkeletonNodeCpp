@@ -17,7 +17,7 @@ Modeled from spiderkeys RTI impl. https://github.com/spiderkeys/SensorPublisher
 
 OpenDDS Application Skeleton for P2P (Peer-2-Peer) RTPS (Real Time Publish Subscribe) Distributed Frameworks. MIT License
 
-Developed and tested in Ubuntu 16.04. OpenDDS 3.13.
+Developed and tested in Ubuntu 16.04. OpenDDS 3.13. (There is an issue with the build of 3.13)
 
 I am learning this as I go along. Please consult the OpenDDS manual for further information on utilizing DDS and QoS to best develop your applications: http://www.opendds.org/documentation.html
    
@@ -31,7 +31,11 @@ The CDataReaderListenerImpl is now part of the CAppNode class. The virtual metho
 
 ## Running the Node:
 
-    ./OpenDDS_SkeletonNodeApp -DCPSConfigFile Config/rtps.ini
+RTI and OCI do not, unfortunately use the name serialization/de-serialization, as discussed in this thread:
+
+The fix to match sample serialization between RTI and OpenDDS is to use the -DCPSRTISerialization flag.
+
+    ./OpenDDS_SkeletonNodeApp -DCPSConfigFile Config/rtps.ini -DCPSRTISerialization
 
 ## Continually under construction >>> USE AT YOUR OWN RISK
 

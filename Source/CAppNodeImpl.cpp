@@ -72,27 +72,27 @@ std::string CAppNodeImpl::GetName()
 void CAppNodeImpl::Run()
 {
 	// Example Messaage to write
-	 orov::Depth message;
+//	 orov::Depth message;
 
 	while( !_psignalHandler->GotExitSignal() )
 	{
 		// Write out example message to ourselves
-		 message.id = "test";
-		 message.depths = nodeutils::GetUnixTimestampMs();
-		 DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
+//		 message.id = "test";
+//		 message.depths = nodeutils::GetUnixTimestampMs();
+//		 DDS::ReturnCode_t ret = _eventWriter->write( message, DDS::HANDLE_NIL );
 
 		// Listening for messages we've subscribed. This is handled by the on_data_available method
 
-		if( ret != DDS::RETCODE_OK )
-		{
-			LOG( ERROR ) << "Error write returned: ";// << ret;
-		}
+//		if( ret != DDS::RETCODE_OK )
+//		{
+//			LOG( ERROR ) << "Error write returned: ";// << ret;
+//		}
 
 		// Handle received messages
 		HandleWaitCondition();
 	}
 
-	CleanUp();
+	CleanUp();// todo don't think i need this since using unique pointer
 }
 
 /**
@@ -172,7 +172,19 @@ void CAppNodeImpl::InitParticipant()
 void CAppNodeImpl::InitPublisherAndSubscriber()
 {
 	// Publisher
-	_publisher = _participant->create_publisher( PUBLISHER_QOS_DEFAULT,
+	DDS::PublisherQos publisher_qos;
+	DDS::ReturnCode_t ret = _participant->get_default_publisher_qos(publisher_qos);
+
+	if (ret != DDS::RETCODE_OK) {
+
+		LOG( ERROR )<< "get_default_publisher_qos error.";
+	}
+
+	publisher_qos.partition.name.length(1);
+
+	publisher_qos.partition.name[0] = CORBA::string_dup("4ec14b6");
+
+	_publisher = _participant->create_publisher( publisher_qos,
 																	DDS::PublisherListener::_nil(),
 																	OpenDDS::DCPS::DEFAULT_STATUS_MASK );
 	if( !_publisher )
@@ -180,8 +192,20 @@ void CAppNodeImpl::InitPublisherAndSubscriber()
 		LOG( ERROR ) << "Create publisher failed.";
 	}
 
+	DDS::SubscriberQos subscriber_qos;
+	ret = _participant->get_default_subscriber_qos(subscriber_qos);
+
+	if (ret != DDS::RETCODE_OK) {
+
+		LOG( ERROR )<< "get_default_subscriber_qos error.";
+	}
+
+	subscriber_qos.partition.name.length(1);
+
+	subscriber_qos.partition.name[0] = CORBA::string_dup("4ec14b6");
+
 	// Subscriber
-	_subscriber = _participant->create_subscriber( SUBSCRIBER_QOS_DEFAULT,
+	_subscriber = _participant->create_subscriber( subscriber_qos,
 													DDS::SubscriberListener::_nil(),
 													OpenDDS::DCPS::DEFAULT_STATUS_MASK );
 	if( !_subscriber )
@@ -208,7 +232,7 @@ void CAppNodeImpl::InitTopicinfo()
 	// Create a topic
 	_topicTypeName = _rovDepthTypeSupport->get_type_name();
 
-	_topic = _participant->create_topic( "Test Topic", _topicTypeName.in(),
+	_topic = _participant->create_topic( "rov_depth", _topicTypeName.in(),
 														TOPIC_QOS_DEFAULT,
 														DDS::TopicListener::_nil(),
 														OpenDDS::DCPS::DEFAULT_STATUS_MASK );
@@ -269,32 +293,22 @@ void CAppNodeImpl::InitDataReader()
 // Reader overrides
 void CAppNodeImpl::on_data_available(DDS::DataReader_ptr reader)
 {
-  orov::DepthDataReader_var reader_i =
-		  orov::DepthDataReader::_narrow(reader);
-
-  if (CORBA::is_nil(reader_i.in())) {
-    ACE_ERROR((LM_ERROR,
-               ACE_TEXT("ERROR: %N:%l: on_data_available() -")
-               ACE_TEXT(" _narrow failed!\n")));
-    ACE_OS::exit(-1);
-  }
-
   orov::DepthSeq messages;
   DDS::SampleInfoSeq info;
 
-  DDS::ReturnCode_t error = reader_i->take(messages,
+  DDS::ReturnCode_t status = _readerI->take(messages,
                                            info,
                                            DDS::LENGTH_UNLIMITED,
                                            DDS::ANY_SAMPLE_STATE,
                                            DDS::ANY_VIEW_STATE,
                                            DDS::ANY_INSTANCE_STATE);
 
-  if (error == DDS::RETCODE_OK) {
-    std::cout << "SampleInfo.sample_rank = " << info[0].sample_rank << std::endl;
-    std::cout << "SampleInfo.instance_state = " << info[0].instance_state << std::endl;
+  if (status == DDS::RETCODE_OK) {
+    LOG( INFO ) << "SampleInfo.sample_rank = " << info[0].sample_rank;
+    LOG( INFO ) << "SampleInfo.instance_state = " << info[0].instance_state;
 
     if (info[0].valid_data) {
-    	std::cout << "SampleInfo " << messages[0].depths;
+    	LOG( INFO ) << "Rov Depth Data: " << messages[0].depth;
     }
 
   } else {
@@ -303,5 +317,5 @@ void CAppNodeImpl::on_data_available(DDS::DataReader_ptr reader)
                ACE_TEXT(" take failed!\n")));
   }
 
-  reader_i->return_loan(messages, info);
+  _readerI->return_loan(messages, info);
 }
