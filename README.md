@@ -36,7 +36,7 @@ The CDataReaderListenerImpl is now part of the CAppNode class. The virtual metho
 ## Running the Node with RTI DDS Interoperability:
 
 RTI and OCI do not, unfortunately use the name serialization/de-serialization, as discussed in this thread:
-https://community.rti.com/kb/what-causes-prespsreaderqueuestorequeueentrydeserialize-messages 
+https://community.rti.com/forum-topic/inter-operability-issues-btw-rti-and-opendds-due-align-8-bytes-issue
 
 The fix to match sample serialization between RTI and OpenDDS is to use the -DCPSRTISerialization flag.
 
